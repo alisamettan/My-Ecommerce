@@ -17,7 +17,7 @@ export default function Navbar() {
         </div>
         <div className="flex gap-5 font-normal text-lg">
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/shop">Shop</NavLink>
+          <NavLink to="/shopping">Shop</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/blog">Blog</NavLink>
           <NavLink to="/contact">Contact</NavLink>

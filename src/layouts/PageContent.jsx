@@ -8,7 +8,7 @@ export default function PageContent() {
       <Route path="/" exact>
         <HomePage />
       </Route>
-      <Route>
+      <Route path="/shopping">
         <ProductListPage />
       </Route>
     </Switch>
