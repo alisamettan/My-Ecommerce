@@ -21,7 +21,7 @@ export default function Navbar() {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/blog">Blog</NavLink>
           <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/pages">Pages</NavLink>
+          <NavLink to="/team">Pages</NavLink>
         </div>
       </div>
       <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6 items-center">

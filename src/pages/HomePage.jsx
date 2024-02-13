@@ -1,9 +1,9 @@
-import Advertisement from "../HomePageComp/Advertisement";
-import BestSeller from "../HomePageComp/BestSeller";
-import Carousel from "../HomePageComp/Carousel";
-import CategoryCard from "../HomePageComp/CategoryCard";
-import FeaturedPosts from "../HomePageComp/FeaturedPosts";
-import Social from "../HomePageComp/Social";
+import Advertisement from "../components/HomePageComp/Advertisement";
+import BestSeller from "../components/HomePageComp/BestSeller";
+import Carousel from "../components/HomePageComp/Carousel";
+import CategoryCard from "../components/HomePageComp/CategoryCard";
+import FeaturedPosts from "../components/HomePageComp/FeaturedPosts";
+import Social from "../components/HomePageComp/Social";
 
 export default function HomePage() {
   return (

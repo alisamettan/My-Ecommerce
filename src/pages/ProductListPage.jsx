@@ -1,8 +1,8 @@
-import Clients from "../ProductList/Clients";
-import FilterComponent from "../ProductList/FilterComponent";
-import ProductHeader from "../ProductList/ProductHeader";
-import ProductListShopCards from "../ProductList/ProductListShopCards";
-import ProductsCards from "../ProductList/ProductsCards";
+import Clients from "../components/ProductList/Clients";
+import FilterComponent from "../components/ProductList/FilterComponent";
+import ProductHeader from "../components/ProductList/ProductHeader";
+import ProductListShopCards from "../components/ProductList/ProductListShopCards";
+import ProductsCards from "../components/ProductList/ProductsCards";
 
 export default function ProductListPage() {
   return (

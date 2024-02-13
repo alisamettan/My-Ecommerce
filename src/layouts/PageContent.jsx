@@ -1,6 +1,10 @@
 import { Switch, Route } from "react-router-dom";
 import ProductListPage from "../pages/ProductListPage";
 import HomePage from "../pages/HomePage";
+import ProductPage from "../pages/ProductPage";
+import AboutPage from "../pages/AboutPage";
+import ContactPage from "../pages/ContactPage";
+import TeamPage from "../pages/TeamPage";
 
 export default function PageContent() {
   return (
@@ -8,8 +12,20 @@ export default function PageContent() {
       <Route path="/" exact>
         <HomePage />
       </Route>
-      <Route path="/shopping">
+      <Route path="/shopping" exact>
         <ProductListPage />
+      </Route>
+      <Route path="/product" exact>
+        <ProductPage />
+      </Route>
+      <Route path="/about" exact>
+        <AboutPage />
+      </Route>
+      <Route path="/contact" exact>
+        <ContactPage />
+      </Route>
+      <Route path="/team" exact>
+        <TeamPage />
       </Route>
     </Switch>
   );
