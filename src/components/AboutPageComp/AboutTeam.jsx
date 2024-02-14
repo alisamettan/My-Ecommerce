@@ -5,8 +5,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { TeamData } from "../../mocks/TeamData/TeamData";
 
 export default function AboutTeam() {
+  const newData = TeamData.slice(0, 3);
+
   return (
     <div className="py-24 flex justify-center">
       <div className=" flex flex-col gap-20">
@@ -19,45 +22,28 @@ export default function AboutTeam() {
         </div>
         <div className="flex justify-center ">
           <div className="flex items-center flex-row gap-16">
-            <Link to="/team" className="flex flex-col gap-6 w-1/3 items-center">
-              <img src="src/assets/AboutPagepicsvideo/team-1-user-1.jpg" />
-              <div className="flex flex-col  gap-3">
-                <h4 className="  text-center font-semibold ">Username</h4>
-                <p className="text-sm text-center ">Profession</p>
-                <div className="flex gap-3  text-primaryColor">
-                  <FontAwesomeIcon icon={faInstagram} />
-                  <FontAwesomeIcon icon={faFacebook} />
-                  <FontAwesomeIcon icon={faTwitter} />
-                </div>
-              </div>
-            </Link>
-            <Link to="/team" className="flex flex-col gap-6 w-1/3 items-center">
-              <img
-                src="src/assets/AboutPagepicsvideo/team-1-user-1.jpg"
-                className=""
-              />
-              <div className="flex flex-col gap-3">
-                <h4 className="  text-center  font-semibold ">Username</h4>
-                <p className="text-sm text-center ">Profession</p>
-                <div className="flex gap-3  text-primaryColor">
-                  <FontAwesomeIcon icon={faInstagram} />
-                  <FontAwesomeIcon icon={faFacebook} />
-                  <FontAwesomeIcon icon={faTwitter} />
-                </div>
-              </div>
-            </Link>
-            <Link to="/team" className="flex flex-col gap-6 w-1/3 items-center">
-              <img src="src/assets/AboutPagepicsvideo/team-1-user-1.jpg" />
-              <div className="flex flex-col gap-3">
-                <h4 className=" font-semibold   text-center ">Username</h4>
-                <p className="text-sm text-center ">Profession</p>
-                <div className="flex gap-3  text-primaryColor">
-                  <FontAwesomeIcon icon={faInstagram} />
-                  <FontAwesomeIcon icon={faFacebook} />
-                  <FontAwesomeIcon icon={faTwitter} />
-                </div>
-              </div>
-            </Link>
+            {newData.map((data, index) => {
+              return (
+                <Link
+                  key={index}
+                  to="/team"
+                  className="flex flex-col gap-6 w-1/3 items-center"
+                >
+                  <img src={data.img} />
+                  <div className="flex flex-col  gap-3">
+                    <h4 className="  text-center font-semibold ">
+                      {data.header}
+                    </h4>
+                    <p className="text-sm text-center ">{data.role}</p>
+                    <div className="flex gap-3  text-primaryColor">
+                      <FontAwesomeIcon icon={faInstagram} />
+                      <FontAwesomeIcon icon={faFacebook} />
+                      <FontAwesomeIcon icon={faTwitter} />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
