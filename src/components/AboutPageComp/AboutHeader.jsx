@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function AboutHeader() {
   return (
-    <div className="flex flex-row items-center px-96 py-36">
+    <div className="flex flex-row items-center px-64 py-36">
       <div className="flex flex-col  gap-8 justify-center">
         <h3 className=" text-textColor font-extrabold text-lg ">
           ABOUT COMPANY

@@ -1,6 +1,6 @@
 export default function AboutContent() {
   return (
-    <div className="px-96 py-14 flex flex-row justify-between items-center">
+    <div className="px-52 py-14 flex flex-row justify-between items-center">
       <div className="flex flex-col gap-6 items-start">
         <h5 className="font-medium  text-red-500">Problems Trying</h5>
         <p className="text-2xl  font-extrabold">
