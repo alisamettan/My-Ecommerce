@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NavBarDark() {
   return (
-    <div className="flex bg-[#23856D] w-full ">
+    <div className="flex bg-[#23856D] w-full sm:hidden">
       <div className="flex justify-evenly container  p-4 h-14 items-center text-white">
         <div className="flex font-normal text-sm gap-6 ">
           {" "}

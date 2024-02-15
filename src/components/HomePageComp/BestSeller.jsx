@@ -12,7 +12,7 @@ export default function BestSeller() {
           Problems trying to resolve the conflict between
         </p>
       </div>
-      <div className="grid grid-rows-2 grid-flow-col gap-x-32 gap-y-24">
+      <div className="grid grid-rows-2 grid-flow-col gap-x-32 gap-y-24 sm:flex-col sm:flex ">
         <div className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">

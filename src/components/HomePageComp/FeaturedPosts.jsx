@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function FeaturedPosts() {
   return (
-    <div className=" w-full py-32  flex justify-center items-center">
+    <div className=" w-full py-32  flex justify-center items-center s">
       <div className=" w-4/5 h-4/5 flex flex-col gap-20">
         <div className="text-center  flex flex-col gap-4">
-          <p className="text-primaryColor font-semibold text-lg capitalize tracking-normal xl:tracking-wider">
-            practice advise
+          <p className="text-primaryColor font-semibold text-lg  ">
+            Practice Advise
           </p>
           <h2 className="text-textColor  text-4xl font-extrabold">
             FEATURED POSTS
@@ -18,8 +18,8 @@ export default function FeaturedPosts() {
             the two major realms of Classical physics: Newtonian mechanics
           </p>
         </div>
-        <div className=" justify-between flex flex-row gap-12 ">
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8">
+        <div className=" justify-between flex gap-12 sm:flex-col sm:items-center">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW
@@ -71,7 +71,7 @@ export default function FeaturedPosts() {
               </div>
             </div>
           </div>
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW
@@ -123,7 +123,7 @@ export default function FeaturedPosts() {
               </div>
             </div>
           </div>
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW
