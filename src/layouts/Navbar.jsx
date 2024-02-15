@@ -17,8 +17,8 @@ export default function Navbar() {
 
   return (
     <header className=" bg-white flex justify-between items-center px-24 py-6 sm:flex-col">
-      <div className=" flex justify-center items-center gap-44 sm:flex-col sm:gap-6">
-        <div className="sm:flex sm:items-center sm:gap-72">
+      <div className=" flex justify-center items-center gap-44 sm:flex-col sm:gap-14">
+        <div className="sm:flex sm:items-center sm:gap-48 ">
           <NavLink className="font-bold text-[30px]" to="/">
             Bandage
           </NavLink>
@@ -31,7 +31,7 @@ export default function Navbar() {
         <div
           className={
             isVisible
-              ? `flex gap-6 font-normal text-lg sm:flex-col sm:gap-4 sm:font-semibold sm:text-2xl `
+              ? `flex gap-6 font-normal text-lg sm:flex-col sm:gap-4 sm:font-semibold sm:text-2xl sm:text-gray-600 `
               : "hidden"
           }
         >

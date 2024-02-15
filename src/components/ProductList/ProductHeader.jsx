@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function ProductHeader() {
   return (
     <div className=" bg-lightGray">
-      <div className="flex flex-row justify-between py-8 px-24">
+      <div className="flex  justify-between py-8 px-24 sm:flex-col sm:items-center sm:gap-10">
         <h2 className="bg- text-textColor text-3xl font-extrabold">Shop</h2>
         <div className="flex flex-row items-center gap-3  font-semibold text-lg">
           <Link to="/">

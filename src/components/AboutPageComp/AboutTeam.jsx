@@ -13,7 +13,7 @@ export default function AboutTeam() {
   return (
     <div className="py-24 flex justify-center">
       <div className=" flex flex-col gap-20">
-        <div className="flex flex-col items-center text-center gap-8 ">
+        <div className="flex flex-col items-center text-center gap-8 sm:px-24">
           <h2 className=" text-textColor font-bold text-4xl ">Meet Our Team</h2>
           <p className="text-secondText ">
             Problems trying to resolve the conflict between <br /> the two major
@@ -21,13 +21,13 @@ export default function AboutTeam() {
           </p>
         </div>
         <div className="flex justify-center ">
-          <div className="flex items-center flex-row gap-16">
+          <div className="flex items-center gap-16 sm:flex-col">
             {newData.map((data, index) => {
               return (
                 <Link
                   key={index}
                   to="/team"
-                  className="flex flex-col gap-6 w-1/3 items-center"
+                  className="flex flex-col gap-6 w-3/4 items-center sm:w-[20rem]"
                 >
                   <img src={data.img} />
                   <div className="flex flex-col  gap-3">

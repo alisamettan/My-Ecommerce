@@ -12,7 +12,7 @@ export default function TeamCTA() {
       <h2 className=" text-textColor font-bold text-5xl ">
         Start your 14 days free trial
       </h2>
-      <p className="text-secondText text-lg">
+      <p className="text-secondText text-lg sm:px-16">
         Met minim Mollie non desert Alamo est sit cliquey dolor <br /> the two
         major do met sent. RELIT official consequent.
       </p>

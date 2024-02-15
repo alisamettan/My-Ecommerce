@@ -11,13 +11,13 @@ export default function TeamMems() {
   return (
     <div className="flex flex-col items-center gap-20 py-20">
       <h1 className="text-5xl font-bold">Meet Our Team</h1>
-      <div className="grid grid-rows-3 grid-flow-col gap-24 px-64">
+      <div className="grid grid-rows-3 grid-flow-col gap-24 px-64 sm:flex sm:flex-col">
         {TeamData.map((data, index) => {
           return (
             <Link
               key={index}
               to="/team"
-              className="flex flex-col items-center gap-4"
+              className="flex flex-col items-center gap-4 sm:w-[20rem]"
             >
               <img src={data.img} />
               <div className="flex flex-col  gap-3">

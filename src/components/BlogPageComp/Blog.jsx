@@ -9,7 +9,7 @@ import { BlogData } from "../../mocks/BlogData/BlogData";
 export default function Blog() {
   return (
     <div className=" w-full py-20  flex justify-center items-center">
-      <div className=" w-4/5 h-4/5 flex flex-col gap-32">
+      <div className="flex flex-col gap-32">
         <div className="text-center  flex flex-col gap-4">
           <p className="text-primaryColor font-semibold text-lg  ">
             Practice Advise
@@ -22,12 +22,12 @@ export default function Blog() {
             the two major realms of Classical physics: Newtonian mechanics
           </p>
         </div>
-        <div className="flex flex-wrap gap-10  justify-center">
+        <div className="flex flex-wrap gap-14 justify-center sm:flex-col sm:items-center">
           {BlogData.map((data, index) => {
             return (
               <div
                 key={index}
-                className="w-[40%] shadow-md border flex flex-col text-center gap-4 pb-8"
+                className="w-[40rem] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[20rem]"
               >
                 <div className="w-full relative ">
                   <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">

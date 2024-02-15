@@ -7,12 +7,12 @@ export default function Social() {
           src="src/assets/HomePagepics/asian-woman-man.png"
           alt=""
         />
-        <div className="flex flex-col gap-10 justify-center sm:text-center">
+        <div className="flex flex-col gap-10 justify-center sm:text-center ">
           <h4 className="text-2xl font-bold text-gray-500">Summer 2023</h4>
-          <h1 className="text-5xl font-extrabold mt-4">
+          <h1 className="text-5xl font-extrabold sm:px-20">
             Part of the Neural <br /> Universe
           </h1>
-          <p className="text-2xl text-gray-600 ">
+          <p className="text-2xl text-gray-600 sm:px-20">
             We know how large objects will act,
             <br /> but things on a small scale
           </p>

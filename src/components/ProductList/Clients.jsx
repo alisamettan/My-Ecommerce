@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Clients() {
   return (
     <div className=" bg-lightGray py-12 px-44">
-      <div className="flex flex-row justify-between  text-secondText">
+      <div className="flex justify-between  text-secondText sm:flex-col sm:items-center">
         <FontAwesomeIcon icon={faHooli} className="w-24 h-24 " />
         <FontAwesomeIcon icon={faLyft} className="w-24 h-24 " />
         <FontAwesomeIcon icon={faPiedPiperHat} className="w-24 h-24 " />

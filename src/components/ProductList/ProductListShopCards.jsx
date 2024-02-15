@@ -1,7 +1,7 @@
 export default function ProductListShopCards() {
   return (
-    <div className="flex flex-row  bg-lightGray justify-between gap-4 pb-12 px-24">
-      <div className="w-[20%] relative ">
+    <div className="flex  bg-lightGray justify-between gap-4 pb-12 px-24 sm:flex-col">
+      <div className="w-[20%] relative sm:w-[100%]">
         <img
           className="w-full "
           src="src/assets/ProductListPagepics/media bg-cover 2.png"
@@ -11,7 +11,7 @@ export default function ProductListShopCards() {
           <p className="text-center font-semibold text-lg">5 Items</p>
         </div>
       </div>
-      <div className="w-[20%] relative">
+      <div className="w-[20%] relative sm:w-[100%]">
         <img
           className="w-full "
           src="src/assets/ProductListPagepics/media bg-cover 2.png"
@@ -21,7 +21,7 @@ export default function ProductListShopCards() {
           <p className="text-center font-semibold text-lg">5 Items</p>
         </div>
       </div>
-      <div className="w-[20%] relative">
+      <div className="w-[20%] relative sm:w-[100%]">
         <img
           className="w-full "
           src="src/assets/ProductListPagepics/media bg-cover 2.png"
@@ -31,7 +31,7 @@ export default function ProductListShopCards() {
           <p className="text-center font-semibold text-lg">5 Items</p>
         </div>
       </div>
-      <div className="w-[20%] relative">
+      <div className="w-[20%] relative sm:w-[100%]">
         <img
           className="w-full "
           src="src/assets/ProductListPagepics/media bg-cover 2.png"
@@ -41,7 +41,7 @@ export default function ProductListShopCards() {
           <p className="text-center font-semibold text-lg">5 Items</p>
         </div>
       </div>
-      <div className="w-[20%] relative">
+      <div className="w-[20%] relative sm:w-[100%]">
         <img
           className="w-full "
           src="src/assets/ProductListPagepics/media bg-cover 2.png"

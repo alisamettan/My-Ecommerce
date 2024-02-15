@@ -92,7 +92,7 @@ export default function Footer() {
         </div>
       </div>
       <div className=" bg-lightGray flex justify-start py-10 px-48 ">
-        <p className="text-secondText text-center  font-semibold">
+        <p className="text-secondText text-center  font-semibold ">
           Made With Love By Finland All Right Reserved
         </p>
       </div>

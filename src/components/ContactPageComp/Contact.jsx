@@ -8,21 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Contact() {
   return (
-    <div className="w-full h-[calc(100vh_-_144px)]  items-center flex flex-row-reverse justify-center gap-8 relative px-24">
-      <div className="w-1/2  h-full relative">
-        <div className="absolute w-[375px]  h-[300px]  bg-roseBg rounded-full right-[11%] bottom-[32%]"></div>
-        <div className="absolute w-3 h-3 bg-violet rounded-full right-[10%]  z-40 bottom-3/4"></div>
-        <div className="absolute w-3 h-3 bg-violet rounded-full left-[34.5%] z-40   bottom-[42%]"></div>
-        <div className="absolute w-16 h-16 bg-roseBg rounded-full  left-[8%] top-[5%]"></div>
-        <div className="absolute w-7 h-7 bg-roseBg rounded-full right-[5%]  top-[40%]"></div>
-        <img
-          src="src/assets/ContactPagepic/family.png"
-          className="absolute bottom-0 right-[5%]  h-full "
-        />
-      </div>
-      <div className=" w-1/3 h-full flex flex-col items-center py-60">
-        <div className="w-4/5 h-3/4">
-          <div className="flex  flex-col h-full justify-center items-start gap-10  text-textColor">
+    <div className="w-full h-[calc(100vh_-_144px)]  items-center flex  justify-center gap-8 relative px-56 sm:flex-col sm:px-0 sm:pt-48 sm:pl-20">
+      <div className=" w-1/3 h-full flex flex-col items-center py-60 ">
+        <div className="w-4/5 h-3/4 sm:w-[15rem]">
+          <div className="flex  flex-col h-full justify-center items-start gap-10  text-textColor sm:text-center">
             <h2 className="uppercase font-semibold text-start ">Contact Us</h2>
             <h3 className="font-bold  tracking-wider text-start  text-5xl leading-snug">
               Get in touch
@@ -46,6 +35,18 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      <div className="w-1/2  h-full relative sm:hidden">
+        <div className="absolute w-[375px]  h-[300px]  bg-roseBg rounded-full right-[11%] bottom-[32%]"></div>
+        <div className="absolute w-3 h-3 bg-violet rounded-full right-[10%]  z-40 bottom-3/4"></div>
+        <div className="absolute w-3 h-3 bg-violet rounded-full left-[34.5%] z-40   bottom-[42%]"></div>
+        <div className="absolute w-16 h-16 bg-roseBg rounded-full  left-[8%] top-[5%]"></div>
+        <div className="absolute w-7 h-7 bg-roseBg rounded-full right-[5%]  top-[40%]"></div>
+        <img
+          src="src/assets/ContactPagepic/family.png"
+          className="absolute bottom-0 right-[5%]  h-full "
+        />
+      </div>
+      ;
     </div>
   );
 }

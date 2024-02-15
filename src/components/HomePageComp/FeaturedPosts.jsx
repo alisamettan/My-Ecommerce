@@ -19,7 +19,7 @@ export default function FeaturedPosts() {
           </p>
         </div>
         <div className=" justify-between flex gap-12 sm:flex-col sm:items-center">
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[80%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW
@@ -71,7 +71,7 @@ export default function FeaturedPosts() {
               </div>
             </div>
           </div>
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[80%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW
@@ -123,7 +123,7 @@ export default function FeaturedPosts() {
               </div>
             </div>
           </div>
-          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[70%]">
+          <div className="w-[32%] shadow-md border flex flex-col text-center gap-4 pb-8 sm:w-[80%]">
             <div className="w-full relative ">
               <p className="absolute text-lightText bg-dangerRed z-10 px-3 py-1 rounded-md top-[5%] left-[5%]">
                 NEW

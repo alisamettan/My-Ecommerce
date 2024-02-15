@@ -3,12 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function FilterComponent() {
   return (
-    <div className="gap-10 flex flex-row justify-between items-center py-16 px-40">
+    <div className="gap-10 flex  justify-between items-center py-16 px-40 sm:flex-col">
       <h2 className=" font-bold text-lg">Showing all 12 results</h2>
       <div className="flex items-center gap-7  font-semibold text-lg p-2">
-        <h3 className="font-bold text-lg">Views :</h3>
-        {/* <BsFillGridFill className="h-5 w-5 text-textColor" />
-          <VscChecklist className="h-5 w-5 text-secondText" /> */}
+        <h3 className="font-bold text-lg">Views:</h3>
         <FontAwesomeIcon
           className="h-6 w-6 border-2 p-2 rounded-md text-textColor"
           icon={faBorderAll}

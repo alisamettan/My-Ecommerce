@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 export default function MainCarousel() {
   return (
     <Carousel
-      className="h-[calc(100vh_-_144px)] w-full sm:w-full m-auto"
+      className="h-[calc(100vh_-_144px)] w-full  m-auto"
       navigation={({ setActiveIndex, activeIndex, length }) => (
         <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
           {new Array(length).fill("").map((_, i) => (
@@ -23,7 +23,7 @@ export default function MainCarousel() {
       <div className="relative h-full w-full">
         <img src={woman} className="h-full w-full" />
 
-        <div className="absolute inset-0 top-[30%] left-[20%] flex text-start sm:right-[20%]">
+        <div className="absolute inset-0 top-[30%] left-[20%] flex text-start sm:absolute sm:right-[20%]">
           <div className=" flex flex-col gap-10  sm:text-center sm:items-center">
             <Typography
               variant="lead"
@@ -35,7 +35,7 @@ export default function MainCarousel() {
             <Typography
               variant="h1"
               color="white"
-              className="text-6xl sm:text-center text-lightText "
+              className="text-6xl sm:text-center text-lightText sm:text-4xl"
             >
               NEW COLLECTION
             </Typography>
@@ -62,7 +62,7 @@ export default function MainCarousel() {
         <img src={woman} className="h-full w-full" />
 
         <div className="absolute inset-0 top-[30%] left-[20%] flex  text-start">
-          <div className=" flex flex-col gap-10 ml-8 xl:text-start md:w-3/4">
+          <div className=" flex flex-col gap-10 ml-8 sm:">
             <Typography
               variant="lead"
               color="white"
