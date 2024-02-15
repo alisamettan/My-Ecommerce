@@ -5,6 +5,7 @@ import ProductPage from "../pages/ProductPage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import TeamPage from "../pages/TeamPage";
+import BlogPage from "../pages/BlogPage";
 
 export default function PageContent() {
   return (
@@ -26,6 +27,9 @@ export default function PageContent() {
       </Route>
       <Route path="/team" exact>
         <TeamPage />
+      </Route>
+      <Route path="/blog" exact>
+        <BlogPage />
       </Route>
     </Switch>
   );

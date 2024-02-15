@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 export default function ProductsCards() {
   return (
     <div className="flex flex-col gap-11 py-20">
       <div className="grid grid-rows-3 grid-flow-col gap-y-24 px-16">
-        <div className="flex flex-col items-center gap-3">
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -18,8 +20,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -35,8 +37,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -52,8 +54,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -69,8 +71,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -86,8 +88,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -103,8 +105,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -120,8 +122,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -137,8 +139,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -154,8 +156,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -171,8 +173,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -188,8 +190,8 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
+        </Link>
+        <Link to="/product" className="flex flex-col items-center gap-3">
           <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
           <h1 className="text-textColor font-extrabold text-lg">
             Graphic Design
@@ -205,7 +207,7 @@ export default function ProductsCards() {
             <button className="h-5 w-5 bg-alertColor rounded-full"></button>
             <button className="h-5 w-5 bg-darkBg rounded-full"></button>
           </div>
-        </div>
+        </Link>
       </div>
       <div className=" bg-white  border-zinc rounded-md mt-8 flex justify-center">
         {/* this area will be changed while doing functionality */}

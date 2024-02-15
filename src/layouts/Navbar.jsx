@@ -8,8 +8,8 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <header className="bg-white flex flex-row justify-between items-center px-24 py-6">
-      <div className="flex flex-row justify-center items-center gap-44">
+    <header className=" bg-white flex flex-row justify-between items-center px-24 py-6 ">
+      <div className=" flex flex-row justify-center items-center gap-44 ">
         <div>
           <NavLink className="font-bold text-[30px]" to="/">
             Bandage
@@ -21,7 +21,7 @@ export default function Navbar() {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/blog">Blog</NavLink>
           <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/team">Pages</NavLink>
+          <NavLink to="/team">Team</NavLink>
         </div>
       </div>
       <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6 items-center">

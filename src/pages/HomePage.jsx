@@ -1,17 +1,19 @@
 import Advertisement from "../components/HomePageComp/Advertisement";
 import BestSeller from "../components/HomePageComp/BestSeller";
-import Carousel from "../components/HomePageComp/Carousel";
+
 import CategoryCard from "../components/HomePageComp/CategoryCard";
 import FeaturedPosts from "../components/HomePageComp/FeaturedPosts";
 import Social from "../components/HomePageComp/Social";
 
+import MainCarousel from "../components/HomePageComp/MainCarousel";
+
 export default function HomePage() {
   return (
     <>
-      <Carousel />
+      <MainCarousel />
       <CategoryCard />
       <BestSeller />
-      <Carousel />
+      <MainCarousel />
       <Advertisement />
       <Social />
       <FeaturedPosts />
