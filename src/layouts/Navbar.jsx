@@ -32,7 +32,7 @@ export default function Navbar() {
           className={
             isVisible
               ? `flex gap-6 font-normal text-lg sm:flex-col sm:gap-4 sm:font-semibold sm:text-2xl sm:text-gray-600 `
-              : "hidden"
+              : "sm:hidden flex gap-6 font-normal text-lg sm:flex-col sm:gap-4 sm:font-semibold sm:text-2xl sm:text-gray-600"
           }
         >
           <NavLink to="/">Home</NavLink>
