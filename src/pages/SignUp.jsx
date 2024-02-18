@@ -3,13 +3,6 @@ import { Button } from "reactstrap";
 import { instance } from "../hooks/useAxios";
 import { useEffect, useState } from "react";
 
-const formDataInitial = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
-
 export default function SignUp() {
   const {
     register,
@@ -19,11 +12,19 @@ export default function SignUp() {
     getValues,
     formState: { errors, isValid },
   } = useForm({
-    defaultValues: formDataInitial,
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role_id: 3,
+      store: { name: "", tax_no: "", bank_account: "" },
+    },
     mode: "all",
   });
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sellerRole, setSellerRole] = useState(false);
 
   useEffect(() => {
     instance
@@ -42,17 +43,43 @@ export default function SignUp() {
   }, [setValue]);
 
   function submitHandler(formData) {
+    let postData = {};
+    if (formData.role_id !== 2) {
+      postData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role_id: formData.role_id,
+      };
+    } else if (formData.role_id === 2) {
+      console.log("else");
+      postData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role_id: formData.role_id,
+        store: {
+          name: formData.store.name,
+          tax_no: formData.store.tax_no,
+          bank_account: formData.store.bank_account,
+        },
+      };
+    }
     setLoading(true);
     instance
-      .post("/signup", formData)
+      .post("/signup", postData)
       .then((res) => {
-        return console.log(res.data);
+        console.log(res.data);
       })
       .finally(() => {
         setLoading(false);
       });
-    reset();
+    // reset();
   }
+  const changeOptionHandle = (e) => {
+    const selectedId = e.target.value;
+    selectedId == "2" ? setSellerRole(true) : setSellerRole(false);
+  };
 
   return (
     <div className="form-card w-96 m-auto py-16">
@@ -64,7 +91,7 @@ export default function SignUp() {
               className={`form-control ${errors.name ? "border-red-500" : ""}`}
               type="text"
               {...register("name", {
-                required: "Name field is necessary!",
+                required: "Name field is required!",
                 minLength: {
                   value: 3,
                   message: "Name field is required with min 3 char!",
@@ -83,7 +110,7 @@ export default function SignUp() {
               className={`form-control ${errors.name ? "border-red-500" : ""}`}
               type="email"
               {...register("email", {
-                required: "Email field is necessary!",
+                required: "Email field is required!",
                 pattern: {
                   value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
                   message: "Please enter a valid email address.",
@@ -102,7 +129,7 @@ export default function SignUp() {
               className={`form-control ${errors.name ? "border-red-500" : ""}`}
               type="password"
               {...register("password", {
-                required: "Password field is necessary!",
+                required: "Password field is required!",
                 pattern: {
                   value:
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/gm,
@@ -137,10 +164,11 @@ export default function SignUp() {
             )}
           </div>
           <div className="mb-3">
-            <label className="form-label">Role:</label>
+            <label className="form-label">Role</label>
             <select
               className="w-full p-2 border rounded"
               {...register("role_id")}
+              onChange={(e) => changeOptionHandle(e)}
             >
               {roles.map((role) => (
                 <option key={role.id} value={role.id}>
@@ -149,15 +177,70 @@ export default function SignUp() {
               ))}
             </select>
           </div>
+          {sellerRole && (
+            <div className="mb-3">
+              <label className="form-label">Store Name</label>
+              <input
+                placeholder="Store Name"
+                className={`form-control ${
+                  errors.name ? "border-red-500" : ""
+                }`}
+                {...register("store.name", {
+                  required: "Store name is required!",
+                  minLength: {
+                    value: 3,
+                    message: "At least 3 characters must be entered",
+                  },
+                })}
+              />
+              <div className="text-red-700">{errors.store?.name?.message}</div>
+
+              <label className="form-label">Store Tax ID</label>
+              <input
+                placeholder="TXXXXVXXXXXX"
+                className={`form-control ${
+                  errors.name ? "border-red-500" : ""
+                }`}
+                {...register("store.tax_no", {
+                  required: "Tax ID is required!",
+                  pattern: {
+                    value: /^T\d{4}V\d{6}$/ /*[1-9](\d{9})([0,2,4,6,8]{1})*/,
+                    message: "TAX ID is not valid",
+                  },
+                })}
+              />
+              <div className="text-red-700">
+                {errors.store?.tax_no?.message}
+              </div>
+
+              <label className="form-label">Iban</label>
+              <input
+                placeholder="TRXXXXXXXXXXXXXXXXXXXXXXXX"
+                className={`form-control ${
+                  errors.name ? "border-red-500" : ""
+                }`}
+                {...register("store.bank_account", {
+                  required: "Iban is required!",
+                  pattern: {
+                    value:
+                      /TR[a-zA-Z0-9]{2}s?([0-9]{4}s?){1}([0-9]{1})([a-zA-Z0-9]{3}s?)([a-zA-Z0-9]{4}s?){3}([a-zA-Z0-9]{2})s?/,
+                    message: "Iban is not valid",
+                  },
+                })}
+              />
+              <div className="text-red-700">
+                {errors.store?.bank_account?.message}
+              </div>
+            </div>
+          )}
           <div className="pt-3 text-center">
-            {loading && <p>Loading...</p>}
             <Button
               type="submit"
               color="primary"
               className="px-12 py-6 bg-primaryColor rounded-lg text-white"
               disabled={!isValid || loading}
             >
-              Submit
+              Submit {loading && <p className="text-red-700">Loading...</p>}
             </Button>
           </div>
         </form>
