@@ -28,7 +28,7 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [sellerRole, setSellerRole] = useState(false);
 
-  const roles = useSelector((state) => state.roles);
+  const roles = useSelector((state) => state.global.roles);
   const dispatch = useDispatch();
 
   useEffect(() => {

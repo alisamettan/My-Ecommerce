@@ -1,9 +1,16 @@
 import { thunk } from "redux-thunk";
 import logger from "redux-logger";
-import { applyMiddleware, legacy_createStore as createStore } from "redux";
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+} from "redux";
 import { globalReducer } from "./reducers/globalReducer";
+import { userReducer } from "./reducers/userReducer";
 
-export const myStore = createStore(
-  globalReducer,
-  applyMiddleware(thunk, logger)
-);
+const reducers = combineReducers({
+  user: userReducer,
+  global: globalReducer,
+});
+
+export const myStore = createStore(reducers, applyMiddleware(thunk, logger));
