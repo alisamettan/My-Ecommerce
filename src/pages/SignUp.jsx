@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { Button } from "reactstrap";
 import { instance } from "../hooks/useAxios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setRolesActionCreator } from "../store/actions/globalAction";
 
 export default function SignUp() {
   const {
@@ -22,12 +24,15 @@ export default function SignUp() {
     },
     mode: "all",
   });
-  const [roles, setRoles] = useState([]);
+  //const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sellerRole, setSellerRole] = useState(false);
 
+  const roles = useSelector((state) => state.roles);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    instance
+    /* instance
       .get("/roles")
       .then((res) => {
         setRoles(res.data);
@@ -39,7 +44,8 @@ export default function SignUp() {
       })
       .catch((error) => {
         console.error(error);
-      });
+      }); */
+    dispatch(setRolesActionCreator());
   }, [setValue]);
 
   function submitHandler(formData) {
