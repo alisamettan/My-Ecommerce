@@ -76,7 +76,7 @@ export default function SignUp() {
       .finally(() => {
         setLoading(false);
       });
-    // reset();
+    reset();
   }
   const changeOptionHandle = (e) => {
     const selectedId = e.target.value;
