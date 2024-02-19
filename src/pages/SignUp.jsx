@@ -17,8 +17,8 @@ export default function SignUp() {
       email: "",
       password: "",
       confirmPassword: "",
-      role_id: 3,
-      store: { name: "", tax_no: "", bank_account: "" },
+      role_id: "3",
+      store: { name: "", phone: "", tax_no: "", bank_account: "" },
     },
     mode: "all",
   });
@@ -44,14 +44,14 @@ export default function SignUp() {
 
   function submitHandler(formData) {
     let postData = {};
-    if (formData.role_id !== 2) {
+    if (formData.role_id !== "2") {
       postData = {
         name: formData.name,
         email: formData.email,
         password: formData.password,
         role_id: formData.role_id,
       };
-    } else if (formData.role_id === 2) {
+    } else if (formData.role_id == "2") {
       console.log("else");
       postData = {
         name: formData.name,
@@ -61,6 +61,7 @@ export default function SignUp() {
         store: {
           name: formData.store.name,
           tax_no: formData.store.tax_no,
+          phone: formData.store.phone,
           bank_account: formData.store.bank_account,
         },
       };
@@ -69,7 +70,8 @@ export default function SignUp() {
     instance
       .post("/signup", postData)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
+        console.log(postData);
       })
       .finally(() => {
         setLoading(false);
@@ -194,6 +196,23 @@ export default function SignUp() {
                 })}
               />
               <div className="text-red-700">{errors.store?.name?.message}</div>
+
+              <label className="form-label">Store Phone</label>
+              <input
+                placeholder="Store Phone"
+                className={`form-control ${
+                  errors.phone ? "border-red-500" : ""
+                }`}
+                {...register("store.phone", {
+                  required: "Store phone is required!",
+                  pattern: {
+                    value:
+                      /^(\+90|0)?\s*(\(\d{3}\)[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2}|\(\d{3}\)[\s-]*\d{3}[\s-]*\d{4}|\(\d{3}\)[\s-]*\d{7}|\d{3}[\s-]*\d{3}[\s-]*\d{4}|\d{3}[\s-]*\d{3}[\s-]*\d{2}[\s-]*\d{2})$/,
+                    message: "Store Phone needs to be Turkish phone number!",
+                  },
+                })}
+              />
+              <div className="text-red-700">{errors.store?.phone?.message}</div>
 
               <label className="form-label">Store Tax ID</label>
               <input
