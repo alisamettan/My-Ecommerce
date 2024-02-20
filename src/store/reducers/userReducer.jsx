@@ -1,4 +1,7 @@
+import { FETCH_STATES } from "./productReducer";
+
 export const SET_USER = "SET_USER";
+export const SET_USER_FETCHSTATE = "SET_USER_FETCHSTATE";
 
 const user = {
   userInfo: {
@@ -7,6 +10,7 @@ const user = {
     password: "",
     role_id: "",
   },
+  fetchState: FETCH_STATES.NotFetched,
 };
 
 export const userReducer = (state = user, action) => {
@@ -15,9 +19,11 @@ export const userReducer = (state = user, action) => {
       return {
         ...state,
         userInfo: {
-          ...payload,
+          ...action.payload,
         },
       };
+    case SET_USER_FETCHSTATE:
+      return { ...state, fetchState: action.payload };
 
     default:
       return state;
