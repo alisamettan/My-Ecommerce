@@ -115,7 +115,7 @@ export default function SignUp() {
           <div className="mb-3">
             <label className="form-label">Email</label>
             <input
-              className={`form-control ${errors.name ? "border-red-500" : ""}`}
+              className={`form-control ${errors.email ? "border-red-500" : ""}`}
               type="email"
               {...register("email", {
                 required: "Email field is required!",
@@ -134,7 +134,7 @@ export default function SignUp() {
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
-              className={`form-control ${errors.name ? "border-red-500" : ""}`}
+              className={`form-control ${errors.email ? "border-red-500" : ""}`}
               type="password"
               {...register("password", {
                 required: "Password field is required!",
@@ -155,7 +155,7 @@ export default function SignUp() {
           <div className="mb-3">
             <label className="form-label">Confirm Password</label>
             <input
-              className={`form-control ${errors.name ? "border-red-500" : ""}`}
+              className={`form-control ${errors.email ? "border-red-500" : ""}`}
               type="password"
               {...register("confirmPassword", {
                 required: "This field is necessary!.",

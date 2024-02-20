@@ -7,6 +7,7 @@ import ContactPage from "../pages/ContactPage";
 import TeamPage from "../pages/TeamPage";
 import BlogPage from "../pages/BlogPage";
 import SignUp from "../pages/SignUp";
+import Login from "../pages/Login";
 
 export default function PageContent() {
   return (
@@ -32,8 +33,11 @@ export default function PageContent() {
       <Route path="/blog" exact>
         <BlogPage />
       </Route>
-      <Route path="/signup">
+      <Route path="/signup" exact>
         <SignUp />
+      </Route>
+      <Route path="/login" exact>
+        <Login />
       </Route>
     </Switch>
   );

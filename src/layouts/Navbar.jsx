@@ -6,10 +6,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import CryptoJS from "crypto-js";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
+  const user = useSelector((store) => store.user.userInfo.token);
+  const userName = useSelector((store) => store.user.userInfo.name);
+  const userMail = useSelector((store) => store.user.userInfo.email);
+  const history = useHistory();
+
+  const hash = CryptoJS.MD5(userMail);
+  const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?s=20`;
 
   function openerCloser() {
     setIsVisible(!isVisible);
@@ -45,9 +55,23 @@ export default function Navbar() {
       </div>
       <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6 items-center sm:hidden">
         <div className="flex justify-center items-center gap-1">
-          <FontAwesomeIcon icon={faUser} />
-          <NavLink to="/login">Login /</NavLink>
-          <NavLink to="/signup"> Register</NavLink>
+          {user ? (
+            <>
+              <img src={gravatarUrl} alt="" />
+              <h1
+                className="cursor-pointer hover:text-blue-900"
+                onClick={() => history.push("/login")}
+              >
+                {userName}
+              </h1>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faUser} />
+              <NavLink to="/login">Login /</NavLink>
+              <NavLink to="/signup"> Register</NavLink>
+            </>
+          )}
         </div>
         <div className="flex gap-6">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
