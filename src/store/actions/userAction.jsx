@@ -20,5 +20,8 @@ export const setUserActionCreator = (formData) => (dispatch, getState) => {
     .catch((err) => {
       console.log(err);
       dispatch(setUserFetchState(FETCH_STATES.FetchFailed));
+    })
+    .finally(() => {
+      dispatch(setUserFetchState(FETCH_STATES.NotFetched));
     });
 };

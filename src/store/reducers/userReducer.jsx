@@ -18,9 +18,7 @@ export const userReducer = (state = user, action) => {
     case SET_USER:
       return {
         ...state,
-        userInfo: {
-          ...action.payload,
-        },
+        userInfo: action.payload,
       };
     case SET_USER_FETCHSTATE:
       return { ...state, fetchState: action.payload };

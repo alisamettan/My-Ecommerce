@@ -5,6 +5,8 @@ import { setUserActionCreator } from "../store/actions/userAction";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { FETCH_STATES } from "../store/reducers/productReducer";
 import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const {
@@ -21,27 +23,39 @@ export default function Login() {
     mode: "all",
   });
   const dispatch = useDispatch();
-  const fetchedStat = useSelector((state) => state.user.fetchState);
+  const fetchStat = useSelector((store) => store.user.fetchState);
+  const token = useSelector((state) => state.user.userInfo.token);
   const history = useHistory();
-
-  const userNotFetched = useSelector(
-    (store) => store.user.fetchState === FETCH_STATES.FetchFailed
-  );
-
-  const userLoaded = useSelector(
-    (store) => store.user.fetchState === FETCH_STATES.Fetched
-  );
 
   function submitHandler(formData) {
     dispatch(setUserActionCreator(formData));
   }
   useEffect(() => {
-    if (userLoaded) {
+    if (fetchStat == FETCH_STATES.Fetched) {
       history.push("/");
-    } else if (userNotFetched) {
+      localStorage.setItem("token", token);
+      toast.success("Login is successful:)", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (fetchStat == FETCH_STATES.FetchFailed) {
       reset();
+      toast.error("Login is unsuccessful!", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }, [userLoaded, userNotFetched, reset, history]);
+  }, [fetchStat]);
 
   return (
     <div className="form-card w-96 m-auto py-16">
@@ -88,7 +102,7 @@ export default function Login() {
               className="px-10 py-3 bg-primaryColor rounded-lg text-white"
               disabled={!isValid}
             >
-              Submit{" "}
+              Submit {fetchStat == FETCH_STATES.Fetching && <div>loading</div>}
               {/* {loading && <p className="text-red-700">Loading...</p>} */}
             </Button>
           </div>
