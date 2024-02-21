@@ -3,6 +3,7 @@ import {
   faBars,
   faCartShopping,
   faMagnifyingGlass,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
@@ -23,6 +24,12 @@ export default function Navbar() {
 
   function openerCloser() {
     setIsVisible(!isVisible);
+  }
+
+  function logOut() {
+    localStorage.removeItem("token");
+    history.push("/login");
+    location.reload();
   }
 
   return (
@@ -77,6 +84,11 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
           <FontAwesomeIcon icon={faCartShopping} />
           <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon
+            onClick={logOut}
+            className="text-gray-800 pl-4 cursor-pointer"
+            icon={faRightFromBracket}
+          />
         </div>
       </div>
     </header>
