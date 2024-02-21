@@ -33,7 +33,6 @@ export default function Login() {
   useEffect(() => {
     if (fetchStat == FETCH_STATES.Fetched) {
       history.push("/");
-      localStorage.setItem("token", token);
       toast.success("Login is successful:)", {
         position: "top-right",
         autoClose: 4000,
