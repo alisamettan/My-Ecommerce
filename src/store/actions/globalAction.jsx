@@ -31,3 +31,14 @@ export const setRolesActionCreator = () => (dispatch) => {
       console.log(err);
     });
 };
+
+export const setCategoriesActionCreator = () => (dispatch) => {
+  instance
+    .get("/categories")
+    .then((res) => {
+      dispatch(setCategories(res.data));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
