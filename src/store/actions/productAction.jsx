@@ -1,4 +1,6 @@
+import { instance } from "../../hooks/useAxios";
 import {
+  CHANGE_FETCHSTAT,
   FETCH_STATES,
   SET_PAGECOUNT,
   SET_PRODUCT,
@@ -22,5 +24,22 @@ export const setActivePageAction = (page) => {
 };
 
 export const setFetchedState = (state) => {
-  return { type: FETCH_STATES, payload: state };
+  return { type: CHANGE_FETCHSTAT, payload: state };
+};
+
+export const setProductsActionCreator = () => (dispatch) => {
+  dispatch(setFetchedState(FETCH_STATES.Fetching));
+  instance
+    .get("/products")
+    .then((res) => {
+      dispatch(setProducts(res.data.products));
+      dispatch(setFetchedState(FETCH_STATES.Fetched));
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setFetchedState(FETCH_STATES.FetchFailed));
+    })
+    .finally(() => {
+      dispatch(setFetchedState(FETCH_STATES.NotFetched));
+    });
 };

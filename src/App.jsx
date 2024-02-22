@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserVerifyActionCreator } from "./store/actions/userAction";
 import { setCategoriesActionCreator } from "./store/actions/globalAction";
+import { setProductsActionCreator } from "./store/actions/productAction";
 
 function App() {
   const dispatch = useDispatch();

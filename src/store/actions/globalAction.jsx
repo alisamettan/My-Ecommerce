@@ -39,6 +39,6 @@ export const setCategoriesActionCreator = () => (dispatch) => {
       dispatch(setCategories(res.data));
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
     });
 };
