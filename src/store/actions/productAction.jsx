@@ -3,6 +3,7 @@ import {
   ADD_PRODUCTS,
   CHANGE_FETCHSTAT,
   FETCH_STATES,
+  FILTER,
   SET_PAGECOUNT,
   SET_PRODUCT,
   SET_PRODUCTCOUNT,
@@ -36,6 +37,10 @@ export const addProducts = (products) => {
   return { type: ADD_PRODUCTS, payload: products };
 };
 
+export const filterProducts = (filter) => {
+  return { type: FILTER, payload: filter };
+};
+
 export const setProductsActionCreator = (params) => (dispatch) => {
   dispatch(setFetchedState(FETCH_STATES.Fetching));
   instance
@@ -43,31 +48,21 @@ export const setProductsActionCreator = (params) => (dispatch) => {
     .then((res) => {
       dispatch(setProducts(res.data.products));
       dispatch(setTotalProduct(res.data.total));
-      dispatch(setFetchedState(FETCH_STATES.Fetched));
     })
     .catch((err) => {
       console.log(err);
-      dispatch(setFetchedState(FETCH_STATES.FetchFailed));
-    })
-    .finally(() => {
-      dispatch(setFetchedState(FETCH_STATES.NotFetched));
     });
 };
 
-export const scrollingAddProducts = (params) => (dispatch) => {
+export const scrollingAddProducts = (param) => (dispatch) => {
   dispatch(setFetchedState(FETCH_STATES.Fetching));
   instance
-    .get("/products", { params })
+    .get("/products", { param })
     .then((res) => {
       dispatch(addProducts(res.data.products));
       dispatch(setTotalProduct(res.data.total));
-      dispatch(setFetchedState(FETCH_STATES.Fetched));
     })
     .catch((err) => {
-      dispatch(setFetchedState(FETCH_STATES.FetchFailed));
       console.log(err);
-    })
-    .finally(() => {
-      dispatch(setFetchedState(FETCH_STATES.NotFetched));
     });
 };

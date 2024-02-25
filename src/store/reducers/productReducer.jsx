@@ -5,6 +5,8 @@ export const SET_ACTIVEPAGE = "SET_ACTIVEPAGE";
 export const CHANGE_FETCHSTAT = "CHANGE_FETCHSTAT";
 export const SET_TOTALPRODUCTS = "SET_TOTALPRODUCTS";
 export const ADD_PRODUCTS = "ADD_PRODUCTS";
+export const FILTER = "FILTER";
+export const SORT = "SORT";
 
 export const FETCH_STATES = {
   NotFetched: "NOT_FETCHED",
@@ -41,7 +43,13 @@ export const productReducer = (state = product, action) => {
       return { ...state, activePage: action.payload };
     case CHANGE_FETCHSTAT:
       return { ...state, fetchState: action.payload };
-
+    case FILTER:
+      return {
+        ...state,
+        productList: action.payload,
+      };
+    case SORT:
+      return { ...state, productList: [...action.payload] };
     default:
       return state;
   }

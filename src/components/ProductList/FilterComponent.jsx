@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   scrollingAddProducts,
-  setProductCount,
   setProductsActionCreator,
 } from "../../store/actions/productAction";
 import { useHistory, useParams } from "react-router-dom";
@@ -23,11 +22,8 @@ export default function FilterComponent() {
   const [offset, setOffSet] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [categoryID, setCategoryID] = useState();
-  /* const [queryParams, setQueryParams] = useQueryParams(); */
-  const [filterParams, setFilterParams] = useState({
-    filter: "",
-    sort: "",
-  });
+  const [queryParams, setQueryParams] = useQueryParams();
+
   const totalProductCount = useSelector((store) => store.product.totalProducts);
   const productFetching = useSelector(
     (store) => store.product.fetchState == FETCH_STATES.Fetching
@@ -41,22 +37,29 @@ export default function FilterComponent() {
   };
 
   //Filter methods
-  function changeFilter(e) {
+
+  const [filterParams, setFilterParams] = useState({
+    filter: "",
+    sort: "",
+  });
+
+  const handleFilterChange = (e) => {
     setFilterParams({
       ...filterParams,
       filter: e.target.value,
     });
-  }
+  };
 
-  function changeSort(e) {
+  const handleSortChange = (e) => {
     setFilterParams({
       ...filterParams,
       sort: e.target.value,
     });
-  }
+  };
+
   function submitHandle(e) {
     e.preventDefault();
-    /* setQueryParams(filterParams); */
+    setQueryParams(filterParams);
   }
   useEffect(() => {
     const categoryCode = gender?.slice(0, 1) + ":" + category;
@@ -68,6 +71,7 @@ export default function FilterComponent() {
     if ((category && categoryID) || !category) {
       dispatch(
         setProductsActionCreator({
+          ...queryParams,
           category: categoryID,
           limit: params?.limit,
           offset: params?.offset,
@@ -76,12 +80,12 @@ export default function FilterComponent() {
     }
     setHasMore(true);
     setOffSet(24);
-  }, [categoryID]);
+  }, [queryParams, categoryID]);
 
   const fetchMoreData = () => {
     dispatch(
       scrollingAddProducts({
-        /*  ...queryParams, */
+        ...queryParams,
         ...params,
         category: categoryID,
       })
@@ -122,15 +126,14 @@ export default function FilterComponent() {
                 name="filter"
                 className="border border-[#DADADA] py-3 rounded-md bg-[#F5F5F5] text-black p-2 sm:w-72"
                 placeholder="Search"
-                onClick={changeFilter}
+                onClick={handleFilterChange}
               ></input>
             </div>
             <select
               className="border-2 rounded-md px-3 cursor-pointer"
               label="Sort By"
-              onClick={changeSort}
+              onClick={handleSortChange}
             >
-              <option>Popularity</option>
               <option key="rating:asc" value="rating:asc">
                 Rating Low-High
               </option>
@@ -159,8 +162,11 @@ export default function FilterComponent() {
         dataLength={productsCount}
         next={fetchMoreData}
         className="infiniteScroll"
-        loader={<p className="text-center">loading...</p>}
-        endMessage={<p>You have seen it all</p>}
+        endMessage={
+          <p className="text-[50px] m-auto text-red-600 flex justify-center py-10">
+            You have seen it all!!
+          </p>
+        }
         hasMore={hasMore}
       >
         <ProductsCards

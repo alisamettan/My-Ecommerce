@@ -2,23 +2,19 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FETCH_STATES } from "../../store/reducers/productReducer";
 
-export default function ProductsCards({
-  products,
-  productFetching,
-  productFetched,
-}) {
-  const productsFetch = useSelector((state) => state.product.fetchState);
-  console.log("Produccccstttt", productFetching);
+export default function ProductsCards({ products, productFetched }) {
   return (
     <div className="flex flex-col gap-11 py-20">
       {productFetched ? (
+        <div>aloooooo</div>
+      ) : (
         <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
-          {products?.map((product) => {
+          {products?.map((product, index) => {
             return (
               <Link
                 to="/product"
                 className="flex flex-col items-center gap-3 w-[25rem] shadow-xl p-5"
-                key={product.id}
+                key={index}
               >
                 <img className="" src={product.images[0].url} alt="" />
 
@@ -44,27 +40,7 @@ export default function ProductsCards({
             );
           })}
         </div>
-      ) : (
-        <div>aloooooooo</div>
       )}
-      <div className=" bg-white  border-zinc rounded-md mt-8 flex justify-center">
-        {/* this area will be changed while doing functionality */}
-        <button className="text-sm border border-zinc bg-zinc100 py-6 px-6 text-mutedColor hover:cursor-pointer rounded-l-md ">
-          First
-        </button>
-        <button className="text-sm border border-zinc text-primaryColor py-6 px-6  hover:cursor-pointer  ">
-          1
-        </button>
-        <button className="text-sm border border-zinc py-6 px-6 text-lightText bg-primaryColor hover:cursor-pointer  ">
-          2
-        </button>
-        <button className="text-sm border border-zinc py-6 px-6 text-primaryColor hover:cursor-pointer  ">
-          3
-        </button>
-        <button className="text-sm border border-zinc py-6 px-6 text-primaryColor hover:cursor-pointer rounded-r-md ">
-          Next
-        </button>
-      </div>
     </div>
   );
 }
