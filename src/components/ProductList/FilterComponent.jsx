@@ -63,8 +63,8 @@ export default function FilterComponent() {
   const [filter, setFilter] = useState(null);
   const [sort, setSort] = useState(null);
 
-  const handleChange = (element) => {
-    setFilterText(element.target.value);
+  const handleChange = (e) => {
+    setFilterText(e.target.value);
   };
 
   const handleFilter = (e) => {
@@ -77,9 +77,9 @@ export default function FilterComponent() {
     setFilter("");
   };
 
-  const handleSort = async (element) => {
+  const handleSort = async (e) => {
     for (const item of navItems) {
-      if (item[1] === element.target.name) {
+      if (item[1] === e.target.name) {
         setDropdownPick(item[0]);
         setSort(item[1]);
         break;
