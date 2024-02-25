@@ -1,4 +1,8 @@
-import { faBorderAll, faList } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBorderAll,
+  faList,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ProductsCards from "./ProductsCards";
@@ -12,17 +16,31 @@ import {
 import { useHistory, useParams } from "react-router-dom";
 import { FETCH_STATES } from "../../store/reducers/productReducer";
 import useQueryParams from "../../hooks/useQueryParams";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
+
+const navItems = [
+  ["Default", ""],
+  ["Price Low to High", "price:asc"],
+  ["Price High to Low", "price:desc"],
+  ["Rating Low to High", "rating:asc"],
+  ["Rating High to Low", "rating:desc"],
+];
 
 export default function FilterComponent() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownPick, setDropdownPick] = useState("Order By");
   const dispatch = useDispatch();
-  const history = useHistory();
   const products = useSelector((state) => state.product.productList);
   const categories = useSelector((state) => state.global.categories);
   const { gender, category } = useParams();
   const [offset, setOffSet] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [categoryID, setCategoryID] = useState();
-  const [queryParams, setQueryParams] = useQueryParams();
 
   const totalProductCount = useSelector((store) => store.product.totalProducts);
   const productFetching = useSelector(
@@ -38,29 +56,37 @@ export default function FilterComponent() {
 
   //Filter methods
 
-  const [filterParams, setFilterParams] = useState({
-    filter: "",
-    sort: "",
-  });
+  const handleToggle = () => setDropdownOpen(!dropdownOpen);
+  const handleHoverIn = () => setDropdownOpen(true);
+  const handleHoverOut = () => setDropdownOpen(false);
+  const [filterText, setFilterText] = useState("");
+  const [filter, setFilter] = useState(null);
+  const [sort, setSort] = useState(null);
 
-  const handleFilterChange = (e) => {
-    setFilterParams({
-      ...filterParams,
-      filter: e.target.value,
-    });
+  const handleChange = (element) => {
+    setFilterText(element.target.value);
   };
 
-  const handleSortChange = (e) => {
-    setFilterParams({
-      ...filterParams,
-      sort: e.target.value,
-    });
-  };
-
-  function submitHandle(e) {
+  const handleFilter = (e) => {
     e.preventDefault();
-    setQueryParams(filterParams);
-  }
+    setFilter(filterText);
+  };
+
+  const cleanFilter = () => {
+    setFilterText("");
+    setFilter("");
+  };
+
+  const handleSort = async (element) => {
+    for (const item of navItems) {
+      if (item[1] === element.target.name) {
+        setDropdownPick(item[0]);
+        setSort(item[1]);
+        break;
+      }
+    }
+  };
+
   useEffect(() => {
     const categoryCode = gender?.slice(0, 1) + ":" + category;
     const categoryRec = categories?.find((c) => c.code === categoryCode);
@@ -71,23 +97,25 @@ export default function FilterComponent() {
     if ((category && categoryID) || !category) {
       dispatch(
         setProductsActionCreator({
-          ...queryParams,
           category: categoryID,
           limit: params?.limit,
           offset: params?.offset,
+          filter: filter,
+          sort: sort,
         })
       );
     }
     setHasMore(true);
     setOffSet(24);
-  }, [queryParams, categoryID]);
+  }, [filter, sort, categoryID]);
 
   const fetchMoreData = () => {
     dispatch(
       scrollingAddProducts({
-        ...queryParams,
         ...params,
         category: categoryID,
+        sort: sort,
+        filter: filter,
       })
     );
     setOffSet(offset + 24);
@@ -119,38 +147,51 @@ export default function FilterComponent() {
           />
         </div>
         <div className=" gap-52 items-center">
-          <form onSubmit={submitHandle} className="flex gap-6 sm:flex-col">
+          <form
+            onSubmit={handleFilter}
+            className="flex items-center gap-6 sm:flex-col"
+          >
             <div className="flex gap-[15px] justify-center items-center">
               <input
                 type="text"
                 name="filter"
-                className="border border-[#DADADA] py-3 rounded-md bg-[#F5F5F5] text-black p-2 sm:w-72"
+                className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 sm:w-72"
                 placeholder="Search"
-                onClick={handleFilterChange}
+                onClick={handleChange}
               ></input>
+              <button onClick={cleanFilter}>
+                <FontAwesomeIcon className="text-gray" icon={faXmark} />
+              </button>
             </div>
-            <select
-              className="border-2 rounded-md px-3 cursor-pointer"
-              label="Sort By"
-              onClick={handleSortChange}
+            <Dropdown
+              onMouseEnter={handleHoverIn}
+              onMouseLeave={handleHoverOut}
+              isOpen={dropdownOpen}
+              toggle={handleToggle}
+              className="text-sm leading-7 text-secondary rounded "
             >
-              <option key="rating:asc" value="rating:asc">
-                Rating Low-High
-              </option>
-              <option key="rating:desc" value="rating:desc">
-                Rating High-Low
-              </option>
-              <option key="price:asc" value="price:asc">
-                Price Low-High
-              </option>
-              <option key="price:desc" value="price:desc">
-                Price High-Low
-              </option>
-            </select>
+              <DropdownToggle className="pl-3 py-2.5 border-1 text-gray border-[#DDDDDD] rounded hover:bg-gray-300 hover:text-black flex items-center justify-between min-w-[200px] gap-2">
+                <p>{dropdownPick}</p>{" "}
+                <FontAwesomeIcon icon="fa-solid fa-angle-down" />
+              </DropdownToggle>
+              <DropdownMenu className="min-w-[200px]">
+                {navItems.map((item, index) => {
+                  return (
+                    <DropdownItem
+                      onClick={handleSort}
+                      name={item[1]}
+                      key={index}
+                    >
+                      {item[0]}
+                    </DropdownItem>
+                  );
+                })}
+              </DropdownMenu>
+            </Dropdown>
 
             <button
               size="lg"
-              className="  bg-primaryColor text-lightText py-3 px-8 rounded-md"
+              className="  bg-primaryColor text-lightText py-[12px] px-8 rounded-md"
               type="submit"
             >
               Filter
