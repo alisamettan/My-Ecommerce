@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function ProductListShopCards() {
   const categories = useSelector((state) => state.global.categories);
+  const { search } = useLocation();
 
   const mostRating = categories.sort((a, b) => {
     return b.rating - a.rating;
@@ -15,10 +17,10 @@ export default function ProductListShopCards() {
           <div key={category.id} className="w-[20%] relative sm:w-[100%]">
             <NavLink
               to={`/shopping/${
-                category.code.includes("k:")
-                  ? `kadin/${category.code.slice(2, category.code.length)}`
-                  : `erkek/${category.code.slice(2, category.code.length)}`
-              }`}
+                category.code.includes("e:")
+                  ? `erkek/${category.code.slice(2, category.code.length)}`
+                  : `kadin/${category.code.slice(2, category.code.length)}`
+              }${search}`}
               key={category.id}
             >
               <img className="h-[100%]" src={category.img} />

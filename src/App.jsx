@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
     dispatch(getUserVerifyActionCreator());
     dispatch(setCategoriesActionCreator());
+    dispatch(setProductsActionCreator());
   }, []);
   return (
     <>

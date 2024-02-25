@@ -6,13 +6,10 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
 export default function Navbar() {
@@ -24,6 +21,7 @@ export default function Navbar() {
   const categories = useSelector((store) => store.global.categories);
   const history = useHistory();
   const location = useLocation();
+  const search = useLocation();
 
   const hash = CryptoJS.MD5(userMail);
   const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?s=20`;
@@ -39,7 +37,7 @@ export default function Navbar() {
   function logOut() {
     localStorage.removeItem("token");
     history.push("/login");
-    location.reload();
+    window.location.reload(true);
   }
   const womanCategories = categories.filter((category) =>
     category.code.includes("k:")
@@ -89,11 +87,7 @@ export default function Navbar() {
                     aria-hidden="true"
                     onClick={clickHandle}
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"
-                    />
+                    <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
                   </svg>
                 </button>
               </div>
@@ -123,6 +117,7 @@ export default function Navbar() {
                         }`}
                         className="text-gray-700 block px-4 py-2 text-sm"
                         role="menuitem"
+                        key={category.id}
                       >
                         {category.title}
                       </NavLink>
@@ -132,9 +127,20 @@ export default function Navbar() {
                     <p className="font-bold text-black text-xl p-2">Men</p>
                     {manCategories.map((category) => (
                       <NavLink
-                        to={`/shopping/${category.code}`}
+                        to={`/shopping/${
+                          category.code.includes("e:")
+                            ? `erkek/${category.code.slice(
+                                2,
+                                category.code.length
+                              )}`
+                            : `kadin/${category.code.slice(
+                                2,
+                                category.code.length
+                              )}`
+                        }`}
                         className="text-gray-700 block px-4 py-2 text-sm"
                         role="menuitem"
+                        key={category.id}
                       >
                         {category.title}
                       </NavLink>

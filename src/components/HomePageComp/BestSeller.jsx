@@ -6,9 +6,6 @@ export default function BestSeller() {
   const dispatch = useDispatch();
   const fetchStat = useSelector((state) => state.product.fetchState);
 
-  useEffect(() => {
-    dispatch(setProductsActionCreator());
-  }, []);
   const products = useSelector((state) => state.product.productList);
   const mostRating = products.sort((a, b) => {
     return b.rating - a.rating;
@@ -28,10 +25,13 @@ export default function BestSeller() {
           Problems trying to resolve the conflict between
         </p>
       </div>
-      <div className="flex flex-wrap items-center justify-center gap-20 sm:flex-col sm:flex ">
-        {bestProducts.map((product) => {
+      <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
+        {bestProducts.map((product, index) => {
           return (
-            <div className="flex flex-col items-center gap-3 w-[18%] shadow-xl p-5">
+            <div
+              key={index}
+              className="flex flex-col items-center gap-3 w-[25rem] shadow-xl p-5"
+            >
               <img className="" src={product.images[0].url} alt="" />
 
               <h1 className="text-textColor font-extrabold text-lg">
