@@ -1,4 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProductsActionCreator } from "../../store/actions/productAction";
+
 export default function BestSeller() {
+  const dispatch = useDispatch();
+  const fetchStat = useSelector((state) => state.product.fetchState);
+
+  const products = useSelector((state) => state.product.productList);
+  const mostRating = products.sort((a, b) => {
+    return b.rating - a.rating;
+  });
+  const bestProducts = mostRating.slice(0, 8);
+
   return (
     <div className="flex items-center flex-col py-32 gap-5">
       <div className="flex items-center flex-col gap-3">
@@ -12,143 +25,36 @@ export default function BestSeller() {
           Problems trying to resolve the conflict between
         </p>
       </div>
-      <div className="grid grid-rows-2 grid-flow-col gap-x-32 gap-y-24 sm:flex-col sm:flex ">
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
-        <div className="flex flex-col items-center gap-3">
-          <img src="src/assets/HomePagepics/fixed-height.png" alt="" />
-          <h1 className="text-textColor font-extrabold text-lg">
-            Graphic Design
-          </h1>
-          <h2 className="text-secondText font-medium">English Department</h2>
-          <div className="flex gap-2 font-extrabold">
-            <span className="text-mutedColor">$16.48</span>
-            <span className="text-secondaryColorGreen font-bold">$6.48</span>
-          </div>
-          <div className="flex flex-row gap-2">
-            <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
-            <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
-            <button className="h-5 w-5 bg-alertColor rounded-full"></button>
-            <button className="h-5 w-5 bg-darkBg rounded-full"></button>
-          </div>
-        </div>
+      <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
+        {bestProducts.map((product, index) => {
+          return (
+            <div
+              key={index}
+              className="flex flex-col items-center gap-3 w-[25rem] shadow-xl p-5"
+            >
+              <img className="" src={product.images[0].url} alt="" />
+
+              <h1 className="text-textColor font-extrabold text-lg">
+                {product.name}
+              </h1>
+              <h2 className="text-secondText font-medium">
+                {product.description}
+              </h2>
+              <div className="flex gap-2 font-extrabold">
+                <span className="text-mutedColor">$200.0</span>
+                <span className="text-secondaryColorGreen font-bold">
+                  ${product.price}
+                </span>
+              </div>
+              <div className="flex flex-row gap-2">
+                <button className="h-5 w-5 bg-primaryColor rounded-full"></button>
+                <button className="h-5 w-5 bg-secondaryColorGreen rounded-full"></button>
+                <button className="h-5 w-5 bg-alertColor rounded-full"></button>
+                <button className="h-5 w-5 bg-darkBg rounded-full"></button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
