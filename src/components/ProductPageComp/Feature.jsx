@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import chair from "../../assets/ProductPagepics/productchair.png";
+import chair from "../../../public/assets/ProductPagepics/productchair.png";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Feature() {

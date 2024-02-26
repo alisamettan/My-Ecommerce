@@ -5,10 +5,7 @@ export default function AboutVideo() {
   return (
     <div className=" relative w-[60rem] m-auto py-20 sm:w-[20rem]">
       <video className=" w-full rounded-2xl" controls>
-        <source
-          src="src/assets/AboutPagepicsvideo/video.mp4"
-          type="video/mp4"
-        />
+        <source src="assets/AboutPagepicsvideo/video.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <FontAwesomeIcon

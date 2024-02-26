@@ -26,7 +26,7 @@ export default function FeaturedPosts() {
               </p>
               <img
                 className="w-full"
-                src="src/assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
+                src="assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
               />
             </div>
             <div className="w-full pt-3 flex justify-center">
@@ -78,7 +78,7 @@ export default function FeaturedPosts() {
               </p>
               <img
                 className="w-full"
-                src="src/assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
+                src="assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
               />
             </div>
             <div className="w-full pt-3 flex justify-center">
@@ -130,7 +130,7 @@ export default function FeaturedPosts() {
               </p>
               <img
                 className="w-full"
-                src="src/assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
+                src="assets/HomePagepics/unsplash_dEGu-oCuB1Y (1).png"
               />
             </div>
             <div className="w-full pt-3 flex justify-center">

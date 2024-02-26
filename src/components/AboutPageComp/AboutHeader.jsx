@@ -20,7 +20,7 @@ export default function AboutHeader() {
         <div className="absolute bg-[#977DF4] rounded-[100%] p-2"></div>
         <div className="absolute right-0 top-0 bg-[#977DF4] rounded-[100%] p-2"></div>
         <img
-          src="src/assets/AboutPagepicsvideo/technology 1 (1).png"
+          src="assets/AboutPagepicsvideo/technology 1 (1).png"
           className="absolute bottom-0 z-40 right-0 sm:w-full sm:h-full"
         />
       </div>

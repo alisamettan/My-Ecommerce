@@ -4,7 +4,7 @@ export default function Social() {
       <div className="flex  gap-36 justify-center sm:flex-col-reverse sm:pt-24 sm:items-center">
         <img
           className="sm:w-[80%] "
-          src="src/assets/HomePagepics/asian-woman-man.png"
+          src="assets/HomePagepics/asian-woman-man.png"
           alt=""
         />
         <div className="flex flex-col gap-10 justify-center sm:text-center ">

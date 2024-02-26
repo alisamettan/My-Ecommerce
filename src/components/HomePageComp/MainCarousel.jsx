@@ -1,5 +1,5 @@
 import { Carousel, Typography } from "@material-tailwind/react";
-import woman from "../../assets/HomePagepics/kadin.jpg";
+import woman from "../../../public/assets/HomePagepics/kadin.jpg";
 import { Button } from "reactstrap";
 
 export default function MainCarousel() {

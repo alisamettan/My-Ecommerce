@@ -42,7 +42,7 @@ export default function Contact() {
         <div className="absolute w-16 h-16 bg-roseBg rounded-full  left-[8%] top-[5%]"></div>
         <div className="absolute w-7 h-7 bg-roseBg rounded-full right-[5%]  top-[40%]"></div>
         <img
-          src="src/assets/ContactPagepic/family.png"
+          src="assets/ContactPagepic/family.png"
           className="absolute bottom-0 right-[5%]  h-full "
         />
       </div>

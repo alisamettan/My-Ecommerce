@@ -89,7 +89,7 @@ export default function FilterComponent() {
 
   useEffect(() => {
     const categoryCode = gender?.slice(0, 1) + ":" + category;
-    const categoryRec = categories?.find((c) => c.code === categoryCode);
+    const categoryRec = categories?.find((c) => c.code == categoryCode);
     setCategoryID(categoryRec?.id);
   }, [gender, category, categories]);
 
@@ -99,7 +99,7 @@ export default function FilterComponent() {
         setProductsActionCreator({
           category: categoryID,
           limit: params?.limit,
-          offset: params?.offset,
+          offset: 0,
           filter: filter,
           sort: sort,
         })
@@ -110,22 +110,26 @@ export default function FilterComponent() {
   }, [filter, sort, categoryID]);
 
   const fetchMoreData = () => {
-    dispatch(
-      scrollingAddProducts({
-        ...params,
-        category: categoryID,
-        sort: sort,
-        filter: filter,
-      })
-    );
-    setOffSet(offset + 24);
+    if (products?.length < totalProductCount) {
+      dispatch(
+        scrollingAddProducts({
+          ...params,
+          category: categoryID,
+          sort: sort,
+          filter: filter,
+        })
+      );
+      setOffSet(offset + 24);
+    } else {
+      setHasMore(false);
+    }
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (totalProductCount && products?.length === totalProductCount) {
       setHasMore(false);
     }
-  }, [products]);
+  }, [products, categoryID]); */
 
   const productsCount = products?.length;
 
