@@ -18,7 +18,7 @@ export default function PageContent() {
       <Route path="/shopping/:gender?/:category?" exact>
         <ProductListPage />
       </Route>
-      <Route path="/product" exact>
+      <Route path="/product/:productId/:productNameSlug" exact>
         <ProductPage />
       </Route>
       <Route path="/about" exact>
