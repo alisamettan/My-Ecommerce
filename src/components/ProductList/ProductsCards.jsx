@@ -10,7 +10,9 @@ export default function ProductsCards({ products, productFetched }) {
           {products?.map((product, index) => {
             return (
               <Link
-                to="/product"
+                to={`/product/${product.id}/${product.name
+                  .toLowerCase()
+                  .replaceAll(" ", "-")} `}
                 className="flex flex-col items-center gap-3 w-[25rem] shadow-xl p-5"
                 key={index}
               >
