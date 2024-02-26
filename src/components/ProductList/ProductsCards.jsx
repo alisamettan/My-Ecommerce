@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-export default function ProductsCards({ products, productFetched }) {
+export default function ProductsCards({ products, productFetching }) {
   return (
     <div className="flex flex-col gap-11 py-20">
-      {productFetched ? (
+      {productFetching ? (
         <div>LOADING...</div>
       ) : (
         <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">

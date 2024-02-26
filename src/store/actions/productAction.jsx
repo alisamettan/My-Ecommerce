@@ -47,7 +47,9 @@ export const setProductsActionCreator = (params) => (dispatch) => {
     .get("/products", { params })
     .then((res) => {
       dispatch(setProducts(res.data.products));
-      dispatch(setTotalProduct(res.data.total));
+      dispatch(setPageCount(Math.ceil(res.data.total / 25)));
+      dispatch(setProductCount(res.data.products.length));
+      dispatch(setFetchedState(FETCH_STATES.Fetched));
     })
     .catch((err) => {
       console.log(err);

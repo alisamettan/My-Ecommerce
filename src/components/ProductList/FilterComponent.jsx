@@ -4,18 +4,16 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InfiniteScroll from "react-infinite-scroll-component";
 import ProductsCards from "./ProductsCards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
-  scrollingAddProducts,
+  setFetchedState,
   setProductsActionCreator,
 } from "../../store/actions/productAction";
 import { useParams } from "react-router-dom";
 import { FETCH_STATES } from "../../store/reducers/productReducer";
-
+import ReactPaginate from "react-paginate";
 import {
   Dropdown,
   DropdownItem,
@@ -37,22 +35,23 @@ export default function FilterComponent() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.productList);
   const categories = useSelector((state) => state.global.categories);
+  const pageCount = useSelector((state) => state.product.pageCount);
   const { gender, category } = useParams();
-  const [offset, setOffSet] = useState(0);
+  const limit = 24;
+  const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [categoryID, setCategoryID] = useState();
-
-  const totalProductCount = useSelector((store) => store.product.totalProducts);
   const productFetching = useSelector(
     (store) => store.product.fetchState == FETCH_STATES.Fetching
   );
   const productFetched = useSelector(
     (store) => store.product.fetchState == FETCH_STATES.Fetched
   );
-  const params = {
-    limit: 24,
-    offset: offset,
-  };
+
+  const productsCount = useSelector((state) => state.product.productCount);
+
+  const endOffset = offset + limit;
+  const currentItems = products?.slice(offset, endOffset);
 
   //Filter methods
 
@@ -87,51 +86,34 @@ export default function FilterComponent() {
     }
   };
 
+  const handlePageClick = (e) => {
+    const newOffset = (e.selected * limit) / productsCount;
+    setOffset(newOffset);
+    console.log(
+      `User requested page number ${e.selected}, which is offset ${newOffset}`
+    );
+  };
+
   useEffect(() => {
     const categoryCode = gender?.slice(0, 1) + ":" + category;
     const categoryRec = categories?.find((c) => c.code == categoryCode);
     setCategoryID(categoryRec?.id);
+    setHasMore(true);
   }, [gender, category, categories]);
 
   useEffect(() => {
-    if ((category && categoryID) || !category) {
+    productFetching;
+    if (hasMore)
       dispatch(
         setProductsActionCreator({
           category: categoryID,
-          limit: params?.limit,
-          offset: 0,
           filter: filter,
           sort: sort,
+          limit,
+          offset,
         })
       );
-    }
-    setHasMore(true);
-    setOffSet(24);
-  }, [filter, sort, categoryID]);
-
-  const fetchMoreData = () => {
-    if (products?.length < totalProductCount) {
-      dispatch(
-        scrollingAddProducts({
-          ...params,
-          category: categoryID,
-          sort: sort,
-          filter: filter,
-        })
-      );
-      setOffSet(offset + 24);
-    } else {
-      setHasMore(false);
-    }
-  };
-
-  /* useEffect(() => {
-    if (totalProductCount && products?.length === totalProductCount) {
-      setHasMore(false);
-    }
-  }, [products, categoryID]); */
-
-  const productsCount = products?.length;
+  }, [filter, sort, categoryID, offset, hasMore]);
 
   return (
     <div>
@@ -202,26 +184,35 @@ export default function FilterComponent() {
           </form>
         </div>
       </div>
-      <InfiniteScroll
-        dataLength={productsCount}
-        next={fetchMoreData}
-        className="infiniteScroll"
-        endMessage={
-          <p className="text-[50px] m-auto text-red-600 flex justify-center py-10">
-            You have seen it all!!
-          </p>
-        }
-        hasMore={hasMore}
-      >
-        <ProductsCards
-          gender={gender}
-          category={category}
-          products={products}
-          categoryID={categoryID}
-          productFetching={productFetching}
-          productFetched={productFetched}
-        />
-      </InfiniteScroll>
+      <ProductsCards
+        gender={gender}
+        category={category}
+        products={currentItems}
+        categoryID={categoryID}
+        productFetching={productFetching}
+        productFetched={productFetched}
+      />
+      <ReactPaginate
+        className="flex justify-center pb-10"
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        pageClassName="page-item text-main"
+        pageLinkClassName="page-link text-main"
+        previousClassName="page-item text-main"
+        previousLinkClassName="page-link text-main"
+        nextClassName="page-item text-main"
+        nextLinkClassName="page-link text-main"
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+        renderOnZeroPageCount={null}
+      />
     </div>
   );
 }
