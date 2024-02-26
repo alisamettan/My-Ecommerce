@@ -17,8 +17,8 @@ export const setProducts = (data) => {
 export const setProductCount = (productCount) => {
   return { type: SET_PRODUCTCOUNT, payload: productCount };
 };
-export const setTotalProduct = (productCount) => {
-  return { type: SET_TOTALPRODUCTS, payload: productCount };
+export const setTotalProduct = (productC) => {
+  return { type: SET_TOTALPRODUCTS, payload: productC };
 };
 
 export const setPageCount = (count) => {

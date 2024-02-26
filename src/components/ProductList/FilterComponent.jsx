@@ -13,9 +13,9 @@ import {
   scrollingAddProducts,
   setProductsActionCreator,
 } from "../../store/actions/productAction";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FETCH_STATES } from "../../store/reducers/productReducer";
-import useQueryParams from "../../hooks/useQueryParams";
+
 import {
   Dropdown,
   DropdownItem,
@@ -172,7 +172,6 @@ export default function FilterComponent() {
             >
               <DropdownToggle className="pl-3 py-2.5 border-1 text-gray border-[#DDDDDD] rounded hover:bg-gray-300 hover:text-black flex items-center justify-between min-w-[200px] gap-2">
                 <p>{dropdownPick}</p>{" "}
-                <FontAwesomeIcon icon="fa-solid fa-angle-down" />
               </DropdownToggle>
               <DropdownMenu className="min-w-[200px]">
                 {navItems.map((item, index) => {

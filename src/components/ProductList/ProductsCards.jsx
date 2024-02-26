@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FETCH_STATES } from "../../store/reducers/productReducer";
 
 export default function ProductsCards({ products, productFetched }) {
   return (
