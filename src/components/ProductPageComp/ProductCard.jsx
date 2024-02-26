@@ -33,7 +33,7 @@ export default function ProductCard() {
   return (
     <div className=" flex justify-center bg-lightGray ">
       <div className="flex flex-col ">
-        <div className="flex flex-row  justify-start  items-center  gap-3  font-semibold py-8 text-lg">
+        <div className="flex flex-row justify-start  items-center  gap-3  font-semibold py-8 text-lg sm:justify-center">
           <Link to="/">
             <h3 className="text-textColor text-lg ">Home</h3>
           </Link>
@@ -45,11 +45,14 @@ export default function ProductCard() {
             <h3 className="text-mutedColor text-lg ">Shop</h3>
           </Link>
         </div>
-        <div className="flex flex-row justify-between ">
+        <div className="flex justify-between sm:flex-col sm:items-center sm:justify-center sm:py-20">
           {product?.images?.map((img, index) => {
             return (
-              <div className="w-[40rem] flex flex-col gap-8">
-                <Carousel key={index} className="w-[30rem] h-[40rem]">
+              <div className="w-[40rem] flex flex-col gap-8 sm:m-auto px-20">
+                <Carousel
+                  key={index}
+                  className="w-[30rem] h-[40rem] sm:w-[30rem] sm:h-[30rem]"
+                >
                   <img className="w-full h-full" src={img.url} />
                   <img className="w-full h-full" src={img.url} />
                 </Carousel>

@@ -2,7 +2,7 @@ import { ProductData } from "../../mocks/ProductData/ProductData";
 
 export default function ProductsBestSeller() {
   return (
-    <div className="grid grid-rows-2 grid-flow-col gap-y-10 p-20">
+    <div className="flex flex-wrap gap-36 p-20 justify-center">
       {ProductData.map((data, index) => {
         return (
           <div key={index} className="flex flex-col items-center gap-3">

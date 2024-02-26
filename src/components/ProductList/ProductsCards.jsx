@@ -4,7 +4,7 @@ export default function ProductsCards({ products, productFetched }) {
   return (
     <div className="flex flex-col gap-11 py-20">
       {productFetched ? (
-        <div>aloooooo</div>
+        <div>LOADING...</div>
       ) : (
         <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
           {products?.map((product, index) => {
