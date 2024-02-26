@@ -7,10 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductsCards from "./ProductsCards";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setFetchedState,
-  setProductsActionCreator,
-} from "../../store/actions/productAction";
+import { setProductsActionCreator } from "../../store/actions/productAction";
 import { useParams } from "react-router-dom";
 import { FETCH_STATES } from "../../store/reducers/productReducer";
 import ReactPaginate from "react-paginate";
@@ -119,7 +116,7 @@ export default function FilterComponent() {
     <div>
       <div className="gap-10 flex  justify-between items-center py-16 px-40 sm:flex-col">
         <h2 className=" font-bold text-lg">
-          Showing all {productsCount} results
+          Showing all {currentItems.length} results
         </h2>
         <div className="flex items-center gap-7  font-semibold text-lg p-2">
           <h3 className="font-bold text-lg">Views:</h3>

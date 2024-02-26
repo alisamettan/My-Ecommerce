@@ -15,7 +15,7 @@ export default function Feature() {
         </ul>
       </div>
       <div className="w-3/4">
-        <div className="flex justify-between sm:flex-col sm:gap-8 sm:justify-center sm:items-center">
+        <div className="flex justify-between gap-12 sm:flex-col sm:gap-8 sm:justify-center sm:items-center">
           <div className="w-[28rem] relative ">
             <img className="w-full h-full z-40 rounded-md" src={chair} />
             <div className="h-full w-full bg-stone absolute -right-3 -bottom-2 -z-30 rounded-md"></div>

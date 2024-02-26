@@ -1,11 +1,7 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setProductsActionCreator } from "../../store/actions/productAction";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function BestSeller() {
-  const dispatch = useDispatch();
-  const fetchStat = useSelector((state) => state.product.fetchState);
-
   const products = useSelector((state) => state.product.productList);
   const mostRating = products.sort((a, b) => {
     return b.rating - a.rating;
@@ -28,7 +24,10 @@ export default function BestSeller() {
       <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
         {bestProducts.map((product, index) => {
           return (
-            <div
+            <Link
+              to={`/product/${product.id}/${product.name
+                .toLowerCase()
+                .replaceAll(" ", "-")} `}
               key={index}
               className="flex flex-col items-center gap-3 w-[25rem] shadow-xl p-5"
             >
@@ -52,7 +51,7 @@ export default function BestSeller() {
                 <button className="h-5 w-5 bg-alertColor rounded-full"></button>
                 <button className="h-5 w-5 bg-darkBg rounded-full"></button>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

@@ -20,7 +20,7 @@ import {
 export default function ProductCard() {
   const { productId } = useParams();
   const [product, setProduct] = useState();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(true);
 
   useEffect(() => {
     instance.get(`/products/${productId}`).then((res) => {
@@ -48,7 +48,7 @@ export default function ProductCard() {
         <div className="flex justify-between sm:flex-col sm:items-center sm:justify-center sm:py-20">
           {product?.images?.map((img, index) => {
             return (
-              <div className="w-[40rem] flex flex-col gap-8 sm:m-auto px-20">
+              <div className="w-[40rem] flex flex-col gap-8 sm:m-auto">
                 <Carousel
                   key={index}
                   className="w-[30rem] h-[40rem] sm:w-[30rem] sm:h-[30rem]"
@@ -64,8 +64,8 @@ export default function ProductCard() {
               </div>
             );
           })}
-          <div className="w-[48%]  flex-col  flex gap-6">
-            <h2 className="text-lg xl:text-2xl text-textColor pt-4 font-semibold ">
+          <div className="w-[48%] flex-col  flex gap-6">
+            <h2 className="text-lg  text-textColor pt-4 font-semibold ">
               {product?.name}
             </h2>
             <div className="flex  items-center gap-4">
