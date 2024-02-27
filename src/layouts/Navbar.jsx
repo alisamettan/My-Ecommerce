@@ -183,7 +183,7 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faMagnifyingGlass} />
           <div className="flex items-center gap-2">
             <Dropdown
-              toggle={() => setDropDown(!dropDown)}
+              toggle={() => setDropDown(dropDown)}
               isOpen={!dropDown}
               direction="left"
             >
