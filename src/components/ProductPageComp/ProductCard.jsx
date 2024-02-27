@@ -16,11 +16,15 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartListAction } from "../../store/actions/shoppingCartAction";
 
 export default function ProductCard() {
   const { productId } = useParams();
   const [product, setProduct] = useState();
   const [dropdownOpen, setDropdownOpen] = useState(true);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.shoppingCart.cartList);
 
   useEffect(() => {
     instance.get(`/products/${productId}`).then((res) => {
@@ -29,6 +33,10 @@ export default function ProductCard() {
   }, [productId]);
 
   const handleToggle = () => setDropdownOpen(!dropdownOpen);
+
+  function addtoShoppingCart() {
+    dispatch(setCartListAction(product));
+  }
 
   return (
     <div className=" flex justify-center bg-lightGray ">
@@ -139,8 +147,9 @@ export default function ProductCard() {
               </div>
               <div className="h-11 w-11 border rounded-full flex justify-center items-center bg-white">
                 <FontAwesomeIcon
-                  className="h-6 w-6 text-textColor"
+                  className="h-6 w-6 text-textColor cursor-pointer hover:text-blue-gray-500"
                   icon={faCartShopping}
+                  onClick={addtoShoppingCart}
                 />
               </div>
               <div className="h-11 w-11 border rounded-full flex justify-center items-center bg-white">
