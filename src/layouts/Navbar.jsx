@@ -184,7 +184,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Dropdown
               toggle={() => setDropDown(!dropDown)}
-              isOpen={!dropDown}
+              isOpen={dropDown}
               direction="left"
             >
               <DropdownToggle data-toggle="dropdown" tag="span">
