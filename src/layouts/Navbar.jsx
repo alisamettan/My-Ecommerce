@@ -11,6 +11,8 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
+import pic from "../../public/assets/BlogPagepics/blog1.png";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -19,9 +21,10 @@ export default function Navbar() {
   const userName = useSelector((store) => store.user.userInfo.name);
   const userMail = useSelector((store) => store.user.userInfo.email);
   const categories = useSelector((store) => store.global.categories);
+  const cart = useSelector((store) => store.shoppingCart.cartList);
   const history = useHistory();
   const location = useLocation();
-  const search = useLocation();
+  const [dropDown, setDropDown] = useState(false);
 
   const hash = CryptoJS.MD5(userMail);
   const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?s=20`;
@@ -156,7 +159,7 @@ export default function Navbar() {
           <NavLink to="/team">Team</NavLink>
         </div>
       </div>
-      <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6 items-center sm:hidden">
+      <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6  items-center sm:hidden">
         <div className="flex justify-center items-center gap-1">
           {user ? (
             <>
@@ -176,9 +179,61 @@ export default function Navbar() {
             </>
           )}
         </div>
-        <div className="flex gap-6">
+        <div className="flex gap-6 items-center">
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <FontAwesomeIcon icon={faCartShopping} />
+          <div className="flex items-center gap-2">
+            <Dropdown
+              toggle={() => setDropDown(!dropDown)}
+              isOpen={!dropDown}
+              direction="left"
+            >
+              <DropdownToggle data-toggle="dropdown" tag="span">
+                <div className="flex gap-1 items-center">
+                  <FontAwesomeIcon icon={faCartShopping} />
+                  <span className="font-thin bg-blue-300 rounded-full px-2 text-white">
+                    {cart.length}
+                  </span>
+                </div>
+              </DropdownToggle>
+              <DropdownMenu className="w-96 h-96 overflow-y-auto">
+                <div className="flex flex-col gap-3 px-4 py-2 ">
+                  <div className="flex items-center font-extrabold gap-1">
+                    <h1>Sepetim</h1>
+                    <span>({cart.length} Ürün)</span>
+                  </div>
+                  {cart.map((item) => {
+                    return (
+                      <div className="flex gap-6 items-center border-b-2 py-2">
+                        <img
+                          className="w-24 h-32 border-3 rounded-lg"
+                          src={item.images[0].url}
+                          alt=""
+                        />
+                        <div className="flex flex-col gap-3">
+                          <h1>{item.name}</h1>
+                          <div className="flex gap-2 text-gray-500 text-sm">
+                            <span>Beden:38</span>
+                            <span>Adet:{item.count}</span>
+                          </div>
+                          <span className="text-orange-700">
+                            {item.price} $
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <div className="flex gap-3 ">
+                    <button className="border-1 py-2 px-7 rounded-md bg-gray-100 hover:bg-gray-700">
+                      Sepete Git
+                    </button>
+                    <button className="border-1 py-2 px-3 rounded-md bg-orange-500 text-white hover:bg-orange-900">
+                      Siparişi Tamamla
+                    </button>
+                  </div>
+                </div>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
           <FontAwesomeIcon icon={faHeart} />
           <FontAwesomeIcon
             onClick={logOut}
