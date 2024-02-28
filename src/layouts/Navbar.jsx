@@ -12,7 +12,6 @@ import { NavLink } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
 import CryptoJS from "crypto-js";
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
-import pic from "../../public/assets/BlogPagepics/blog1.png";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -201,29 +200,37 @@ export default function Navbar() {
                     <h1>Sepetim</h1>
                     <span>({cart.length} Ürün)</span>
                   </div>
-                  {cart.map((item) => {
-                    return (
-                      <div className="flex gap-6 items-center border-b-2 py-2">
-                        <img
-                          className="w-24 h-32 border-3 rounded-lg"
-                          src={item.images[0].url}
-                          alt=""
-                        />
-                        <div className="flex flex-col gap-3">
-                          <h1>{item.name}</h1>
-                          <div className="flex gap-2 text-gray-500 text-sm">
-                            <span>Beden:38</span>
-                            <span>Adet:{item.count}</span>
+                  {cart.map((item, index) => {
+                    if (item.count > 0) {
+                      return (
+                        <div
+                          key={index}
+                          className="flex gap-6 items-center border-b-2 py-2"
+                        >
+                          <img
+                            className="w-24 h-32 border-3 rounded-lg"
+                            src={item.images[0].url}
+                            alt=""
+                          />
+                          <div className="flex flex-col gap-3">
+                            <h1>{item.name}</h1>
+                            <div className="flex gap-2 text-gray-500 text-sm">
+                              <span>Beden:38</span>
+                              <span>Adet:{item.count}</span>
+                            </div>
+                            <span className="text-orange-700">
+                              {item.price * item.count} $
+                            </span>
                           </div>
-                          <span className="text-orange-700">
-                            {item.price} $
-                          </span>
                         </div>
-                      </div>
-                    );
+                      );
+                    }
                   })}
                   <div className="flex gap-3 ">
-                    <button className="border-1 py-2 px-7 rounded-md bg-gray-100 hover:bg-gray-700">
+                    <button
+                      onClick={() => history.push("/cart")}
+                      className="border-1 py-2 px-7 rounded-md bg-gray-100 hover:bg-gray-700"
+                    >
                       Sepete Git
                     </button>
                     <button className="border-1 py-2 px-3 rounded-md bg-orange-500 text-white hover:bg-orange-900">
