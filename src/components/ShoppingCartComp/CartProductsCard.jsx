@@ -1,7 +1,11 @@
 import { faTrash, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartListAction } from "../../store/actions/shoppingCartAction";
+import {
+  removeProductAction,
+  setCartListAction,
+  toggleCheckItemAction,
+} from "../../store/actions/shoppingCartAction";
 
 export default function CartProductsCard() {
   const cart = useSelector((state) => state.shoppingCart.cartList);
@@ -14,16 +18,28 @@ export default function CartProductsCard() {
     dispatch(setCartListAction(item, "decrement"));
   }
 
+  function toggleCheckbox(item) {
+    dispatch(toggleCheckItemAction(item));
+  }
+
+  function removeAllProduct(item) {
+    dispatch(removeProductAction(item));
+  }
+
   return (
     <div className="py-20 flex flex-col">
-      {cart.map((item) => {
+      {cart.map((item, index) => {
         if (item.count > 0) {
           return (
-            <div className="flex items-center gap-8 px-28 border-b-2 py-5">
+            <div
+              key={index}
+              className="flex items-center gap-8 border-b-2 py-5 px-20"
+            >
               <input
                 class="w-5 h-5 border-gray-800 rounded "
                 type="checkbox"
                 checked={item.checked}
+                onClick={() => toggleCheckbox(item)}
               />
               <img
                 className="w-[9rem] h-[12rem] border-2 rounded-lg"
@@ -49,7 +65,7 @@ export default function CartProductsCard() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center justify-between pl-16 gap-36">
+              <div className="flex items-center justify-between pl-16 gap-24">
                 <div className="flex items-center">
                   <button
                     onClick={() => productRemover(item)}
@@ -73,6 +89,7 @@ export default function CartProductsCard() {
                 <FontAwesomeIcon
                   className="w-5 h-5 text-gray-700"
                   icon={faTrash}
+                  onClick={() => removeAllProduct(item)}
                 />
               </div>
             </div>
