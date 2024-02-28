@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import Loading from "./Spinner";
 
 export default function ProductsCards({ products, productFetching }) {
   return (
     <div className="flex flex-col gap-11 py-20">
       {productFetching ? (
-        <div>LOADING...</div>
+        <div className="m-auto">
+          <Loading />
+        </div>
       ) : (
         <div className="flex flex-wrap items-center justify-center gap-14 sm:flex-col sm:flex ">
           {products?.map((product, index) => {
