@@ -56,7 +56,7 @@ export default function FilterComponent() {
   const handleHoverIn = () => setDropdownOpen(true);
   const handleHoverOut = () => setDropdownOpen(false);
   const [filterText, setFilterText] = useState("");
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState("");
   const [sort, setSort] = useState(null);
 
   const handleChange = (e) => {
@@ -104,7 +104,7 @@ export default function FilterComponent() {
       dispatch(
         setProductsActionCreator({
           category: categoryID,
-          filter: filter,
+          filter: filterText,
           sort: sort,
           limit,
           offset,
@@ -140,7 +140,8 @@ export default function FilterComponent() {
                 name="filter"
                 className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 sm:w-72"
                 placeholder="Search"
-                onClick={handleChange}
+                onChange={handleChange}
+                value={filterText}
               ></input>
               <button onClick={cleanFilter}>
                 <FontAwesomeIcon className="text-gray" icon={faXmark} />
