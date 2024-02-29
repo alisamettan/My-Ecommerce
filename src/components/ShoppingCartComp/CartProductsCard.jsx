@@ -11,10 +11,13 @@ import {
   setCartListAction,
   toggleCheckItemAction,
 } from "../../store/actions/shoppingCartAction";
+import { useState } from "react";
 
 export default function CartProductsCard() {
   const cart = useSelector((state) => state.shoppingCart.cartList);
   const dispatch = useDispatch();
+  const [inputOpen, setInputOpen] = useState(false);
+  const [filterText, setFilterText] = useState("");
 
   function productAdder(item) {
     dispatch(setCartListAction(item));
@@ -30,16 +33,45 @@ export default function CartProductsCard() {
   function removeAllProduct(item) {
     dispatch(removeProductAction(item));
   }
+  const handleChange = (e) => {
+    setFilterText(e.target.value);
+  };
 
+  const toFixed2 = (number) => {
+    return (Math.round(number * 100) / 100).toFixed(2);
+  };
+  let totalCargo = 29;
+
+  function cargoCalculator() {
+    if (totalPricefunc() > 150) {
+      return totalPricefunc();
+    } else {
+      return totalPricefunc() + totalCargo;
+    }
+  }
+
+  function totalPricefunc() {
+    let totalPrice = 0;
+
+    for (let item of cart) {
+      if (item.checked) {
+        totalPrice += item.count * item.price;
+      } else {
+        totalPrice = 0;
+        totalCargo = 0;
+      }
+    }
+    return totalPrice;
+  }
   return (
-    <div className="flex py-16 px-3">
+    <div className="flex py-16 px-12">
       <div className="flex flex-col">
         {cart.map((item, index) => {
           if (item.count > 0) {
             return (
               <div
                 key={index}
-                className="flex items-center gap-6  py-5 px-12 border-1"
+                className="flex items-center gap-6  py-5 px-10 border-1 w-full"
               >
                 <input
                   class="w-5 h-5 border-gray-800 rounded "
@@ -54,9 +86,7 @@ export default function CartProductsCard() {
                 />
                 <div className="flex flex-col gap-3">
                   <h1>{item.name}</h1>
-                  <h2 className="text-gray-500 w-[25rem]">
-                    {item.description}
-                  </h2>
+                  <h2 className="text-gray-500 w-[30]">{item.description}</h2>
                   <span>Beden : 38</span>
                   <span>Adet : {item.count}</span>
                   <div className="flex items-center gap-2">
@@ -95,7 +125,7 @@ export default function CartProductsCard() {
                     </button>
                   </div>
                   <h1 className="text-xl text-orange-500">
-                    {item.price * item.count}$
+                    {toFixed2(item.price * item.count)}$
                   </h1>
                   <FontAwesomeIcon
                     className="w-5 h-5 text-gray-700"
@@ -109,31 +139,53 @@ export default function CartProductsCard() {
         })}
       </div>
       {cart.length > 0 ? (
-        <div className="flex flex-col gap-2 items-center border-1 h-[23rem] mx-4">
-          <div className="flex flex-col px-3 py-4 gap-2 ">
+        <div className="flex flex-col gap-2  mx-8 border-1 px-4  py-3 h-[20%] w-[25%]">
+          <div className="flex flex-col gap-2 ">
             <h1 className="pb-4 text-2xl">Sipariş Özeti</h1>
-            <div className="flex justify-between gap-28">
+            <div className="flex justify-between">
               <p>Ürün Toplamı</p>
-              <p>55555 $</p>
+              <p>{toFixed2(totalPricefunc())} $</p>
             </div>
-            <div className="flex justify-between gap-28">
+            <div className="flex justify-between">
               <p>Kargo Toplam</p>
-              <p>29.99 $</p>
+              <p>{totalCargo} $</p>
             </div>
-            <div className="flex justify-between gap-28 border-b-2 pb-2">
-              <p>Kargo İndirimi</p>
-              <p className="text-orange-500">29.99 $</p>
+            <div className="flex justify-between border-b-2 pb-2">
+              <p>
+                150 $ ve Üzeri <br /> Kargo Bedava(Satıcı Karşılar)
+              </p>
+              <p className="text-orange-500">-{totalCargo} $</p>
             </div>
-            <div className="flex justify-between gap-28">
+            <div className="flex justify-between">
               <p>Toplam</p>
-              <p className="text-orange-500">88888 $</p>
+              <p className="text-orange-500">{cargoCalculator()} $</p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <button className="text-sm border-1 rounded-md py-2 px-5">
+            <button
+              onClick={() => setInputOpen(!inputOpen)}
+              className="text-sm border-1 rounded-md py-2 px-5"
+            >
               <FontAwesomeIcon className="text-orange-500" icon={faPlus} />{" "}
               İNDİRİM KODU GİR
             </button>
+            {inputOpen && (
+              <form onSubmit={""} className="flex flex-col gap-2">
+                <input
+                  onChange={handleChange}
+                  value={filterText}
+                  type="text"
+                  placeholder="İndirim Kodu"
+                  className="pl-[35%] border-1 py-2"
+                />
+                <button
+                  type="submit"
+                  className="border-1 w-24 m-auto py-2 rounded-lg bg-orange-500 text-white"
+                >
+                  Submit
+                </button>
+              </form>
+            )}
             <button className="text-sm border-1 rounded-md py-2 px-5 bg-orange-500 text-white">
               Sepeti Onayla <FontAwesomeIcon icon={faChevronRight} />
             </button>
