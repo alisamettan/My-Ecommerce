@@ -41,30 +41,27 @@ export const filterProducts = (filter) => {
   return { type: FILTER, payload: filter };
 };
 
-export const setProductsActionCreator = (params) => (dispatch) => {
-  dispatch(setFetchedState(FETCH_STATES.Fetching));
-  instance
-    .get("/products", { params })
-    .then((res) => {
-      dispatch(setProducts(res.data.products));
-      dispatch(setPageCount(Math.ceil(res.data.total / 25)));
-      dispatch(setProductCount(res.data.products.length));
-      dispatch(setFetchedState(FETCH_STATES.Fetched));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-export const scrollingAddProducts = (param) => (dispatch) => {
-  dispatch(setFetchedState(FETCH_STATES.Fetching));
-  instance
-    .get("/products", { param })
-    .then((res) => {
-      dispatch(addProducts(res.data.products));
-      dispatch(setTotalProduct(res.data.total));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+export const setProductsActionCreator =
+  (category = null, filter = null, sort = null, limit = null, offset = null) =>
+  (dispatch) => {
+    dispatch(setFetchedState(FETCH_STATES.Fetching));
+    instance
+      .get("/products", {
+        params: {
+          category: category,
+          filter: filter,
+          sort: sort,
+          limit: limit,
+          offset: offset,
+        },
+      })
+      .then((res) => {
+        dispatch(setProducts(res.data.products));
+        dispatch(setPageCount(Math.ceil(res.data.total / 25)));
+        dispatch(setProductCount(res.data.products.length));
+        dispatch(setFetchedState(FETCH_STATES.Fetched));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };

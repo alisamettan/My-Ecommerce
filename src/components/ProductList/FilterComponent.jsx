@@ -102,13 +102,7 @@ export default function FilterComponent() {
     productFetching;
     if (hasMore)
       dispatch(
-        setProductsActionCreator({
-          category: categoryID,
-          filter: filterText,
-          sort: sort,
-          limit,
-          offset,
-        })
+        setProductsActionCreator(categoryID, filterText, sort, limit, offset)
       );
   }, [filter, sort, categoryID, offset, hasMore]);
 
