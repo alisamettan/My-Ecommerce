@@ -17,6 +17,7 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const navItems = [
   ["Default", ""],
@@ -34,6 +35,7 @@ export default function FilterComponent() {
   const categories = useSelector((state) => state.global.categories);
   const pageCount = useSelector((state) => state.product.pageCount);
   const { gender, category } = useParams();
+  const history = useHistory();
   const limit = 24;
   const [offset, setOffset] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -65,12 +67,11 @@ export default function FilterComponent() {
 
   const handleFilter = (e) => {
     e.preventDefault();
-    setFilter(filterText);
+    updateUrl();
   };
 
   const cleanFilter = () => {
     setFilterText("");
-    setFilter("");
   };
 
   const handleSort = async (e) => {
@@ -78,6 +79,7 @@ export default function FilterComponent() {
       if (item[1] === e.target.name) {
         setDropdownPick(item[0]);
         setSort(item[1]);
+        updateUrl();
         break;
       }
     }
@@ -98,13 +100,45 @@ export default function FilterComponent() {
     setHasMore(true);
   }, [gender, category, categories]);
 
+  const updateUrl = () => {
+    const urlBase = `/shopping${gender ? `/${gender}` : ""}${
+      category ? `/${category}` : ""
+    }`;
+    // filterText ve offset varsa, URL'e ekle
+    const queryParams = [];
+    if (filterText) {
+      queryParams.push(`filter=${filterText}`);
+    }
+    if (offset) {
+      queryParams.push(`offset=${offset}`);
+    }
+    if (sort) {
+      queryParams.push(`sort=${sort}`);
+    }
+    const queryString =
+      queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+    // filterText veya offset varsa URL'i güncelle, yoksa güncelleme
+    const url = `${urlBase}${queryString}`;
+    console.log("Updated URL:", url);
+    history.push(url);
+  };
+
   useEffect(() => {
-    productFetching;
-    if (hasMore)
-      dispatch(
-        setProductsActionCreator(categoryID, filterText, sort, limit, offset)
-      );
-  }, [filter, sort, categoryID, offset, hasMore]);
+    const fetchData = async () => {
+      try {
+        dispatch(
+          setProductsActionCreator(categoryID, filterText, sort, limit, offset)
+        );
+        updateUrl();
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (hasMore) {
+      fetchData();
+    }
+  }, [filterText, sort, categoryID, offset, hasMore]);
 
   return (
     <div>
