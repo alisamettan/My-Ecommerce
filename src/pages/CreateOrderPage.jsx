@@ -2,12 +2,43 @@ import {
   faInfo,
   faPhone,
   faPlus,
+  faTrash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OrderSummary from "../components/CreateOrderPageComp/OrderSummary";
+import { useEffect, useState } from "react";
+import { instance } from "../hooks/useAxios";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeAddressAction,
+  removeAddressThunkAction,
+  setAddress,
+} from "../store/actions/shoppingCartAction";
+import AddressModal from "../components/CreateOrderPageComp/AddressModal";
 
 export default function CreateOrderPage() {
+  const dispatch = useDispatch();
+  const address = useSelector((state) => state.shoppingCart.address);
+  const token = localStorage.getItem("token");
+  const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    instance
+      .get("/user/address", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        dispatch(setAddress(res.data));
+      });
+  }, []);
+
+  function removeAddress(id) {
+    dispatch(removeAddressThunkAction(id));
+  }
+
   return (
     <div className="flex px-10 py-10">
       <div className="flex flex-col w-3/4">
@@ -51,45 +82,68 @@ export default function CreateOrderPage() {
             </div>
           </div>
           <div className="flex flex-col gap-2 py-4">
-            <div className="flex flex-col items-center gap-2 border-1 rounded-md w-[35rem] justify-center py-5 ">
+            <div
+              onClick={() => setModal(!modal)}
+              className="flex flex-col items-center gap-2 border-1 rounded-md w-[35rem] justify-center py-5 hover:bg-gray-200 cursor-pointer"
+            >
               <FontAwesomeIcon
                 className="text-orange-500 text-xl"
                 icon={faPlus}
               />
               <h1 className="text-lg">Yeni Adres Ekle</h1>
             </div>
+            {true && <AddressModal modal={modal} setModal={setModal} />}
             <div className="flex flex-wrap gap-x-10 ">
-              <div className="w-[35rem] flex flex-col gap-2 py-4">
-                <div className="flex justify-between">
-                  <div className="flex gap-2 ">
-                    <input type="checkbox" name="" id="" />
-                    <label htmlFor="">Ev</label>
-                  </div>
-                  <p className="text-sm underline cursor-pointer">Düzenle</p>
-                </div>
-                <div className="border-1 rounded-md flex flex-col gap-7 py-4 px-3 h-[150px] justify-center">
-                  <div className="flex justify-between">
-                    <div className="flex gap-2">
-                      <FontAwesomeIcon
-                        className="text-orange-500"
-                        icon={faUser}
-                      />
-                      <h2>Ali Samet</h2>
+              {address.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="w-[35rem] flex flex-col gap-2 py-4"
+                  >
+                    <div className="flex justify-between">
+                      <div className="flex gap-2 ">
+                        <input type="checkbox" name="" id="" />
+                        <label htmlFor="">{item.title}</label>
+                      </div>
+                      <p className="text-sm underline cursor-pointer">
+                        Düzenle
+                      </p>
                     </div>
-                    <div className="flex gap-2">
-                      <FontAwesomeIcon
-                        className="text-orange-500"
-                        icon={faPhone}
-                      />
-                      <h2 className="text-sm">+905394816079</h2>
+                    <div className="border-1 rounded-md flex flex-col gap-7 px-3 h-[150px] justify-center">
+                      <div className="flex justify-between">
+                        <div className="flex gap-2">
+                          <FontAwesomeIcon
+                            className="text-orange-500"
+                            icon={faUser}
+                          />
+                          <h2>
+                            {item.name} <br />
+                            {item.surname}
+                          </h2>
+                        </div>
+                        <div className="flex gap-2">
+                          <FontAwesomeIcon
+                            className="text-orange-500"
+                            icon={faPhone}
+                          />
+                          <h2 className="text-sm">+905394816079</h2>
+                        </div>
+                      </div>
+                      <p>
+                        {item.address}
+                        <br />
+                        {item.neighborhood} <br />
+                        {item.city}/{item.district}
+                      </p>
                     </div>
+                    <FontAwesomeIcon
+                      onClick={() => removeAddress(item.id)}
+                      className="h-4 w-4 text-white bg-gray-500 p-2 rounded-full cursor-pointer"
+                      icon={faTrash}
+                    />
                   </div>
-                  <p>
-                    PTT Evleri Mahallesi Asi Nehri Sokak No:27 Daire:3
-                    Sarıyer/İstanbul
-                  </p>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ export const SET_ADDRESS = "SET_ADDRESS";
 export const DECREMENT_CART_ITEM = "DECREMENT_CART_ITEM";
 export const TOGGLE_CHECK_ITEM = "TOGGLE_CHECK_ITEM";
 export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
+export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 
 const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
@@ -71,8 +72,15 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
     case SET_PAYMENT:
       return { ...state, payment: action.payload };
     case SET_ADDRESS:
-      return { ...state, address: action.payload };
+      return { ...state, address: [...state.address, ...action.payload] };
+    case REMOVE_ADDRESS:
+      const updatedAddressList = state.address.filter(
+        (item) => item.id !== action.payload.id
+      );
 
+      localStorage.setItem("addressList", JSON.stringify(updatedAddressList));
+
+      return { ...state, address: updatedAddressList };
     default:
       return state;
   }

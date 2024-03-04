@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import {
   DECREMENT_CART_ITEM,
+  REMOVE_ADDRESS,
   REMOVE_CART_ITEM,
   SET_ADDRESS,
   SET_CART_LIST,
@@ -34,25 +35,34 @@ export const setPaymentAction = (payment) => {
 export const setAddress = (address) => {
   return { type: SET_ADDRESS, payload: address };
 };
-
-export const setAddressThunkAction = (formData) => (dispatch) => {
-  instance
-    .post("user/address", formData)
-    .then((res) => {
-      toast.success("Adress başarılı bir şekilde kaydedildi!");
-    })
-    .catch((err) => {
-      console.error(err);
-      toast.error("Adress kaydedilirken bir hata ile karşılaşıldı!");
-    });
+export const removeAddressAction = (address) => {
+  return { type: REMOVE_ADDRESS, payload: address };
 };
 
-export const fetchAddressThunkAction = () => (dispatch) => {
+export const setAddressThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
   instance
-    .get("user/address")
-    .then((res) => dispatch(setAddress(res.data)))
-    .catch((err) => {
-      console.error(err);
-      toast.error("Adress çekilemedi bir hata ile karşılaşıldı!");
-    });
+    .post("/user/address", formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      dispatch(setAddress(res.data));
+    })
+    .catch((err) => console.log(err));
+};
+
+export const removeAddressThunkAction = (id) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  instance
+    .delete(`/user/address/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      dispatch(setAddress(res.data));
+    })
+    .catch((err) => console.log(err));
 };
