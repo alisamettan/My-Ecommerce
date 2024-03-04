@@ -5,8 +5,9 @@ export const DECREMENT_CART_ITEM = "DECREMENT_CART_ITEM";
 export const TOGGLE_CHECK_ITEM = "TOGGLE_CHECK_ITEM";
 export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
 
+const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
-  cartList: [],
+  cartList: storedCartList,
   payment: {},
   address: [],
 };
@@ -23,15 +24,18 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
         updatedCartList[existingProductIndex].count += 1;
         updatedCartList[existingProductIndex].checked = true;
 
+        localStorage.setItem("cartList", JSON.stringify(updatedCartList));
+
         return { ...state, cartList: updatedCartList };
       } else {
-        return {
-          ...state,
-          cartList: [
-            ...state.cartList,
-            { count: 1, checked: true, ...action.payload },
-          ],
-        };
+        const updatedCartList = [
+          ...state.cartList,
+          { count: 1, checked: true, ...action.payload },
+        ];
+
+        localStorage.setItem("cartList", JSON.stringify(updatedCartList));
+
+        return { ...state, cartList: updatedCartList };
       }
     case DECREMENT_CART_ITEM:
       const updatedCart = state.cartList
@@ -43,12 +47,16 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
         })
         .filter((item) => item.count > 0);
 
+      localStorage.setItem("cartList", JSON.stringify(updatedCart));
+
       return { ...state, cartList: updatedCart };
 
     case REMOVE_CART_ITEM:
       const updatedCartAfterRemove = state.cartList.filter(
         (item) => item.id !== action.payload.id
       );
+
+      localStorage.setItem("cartList", JSON.stringify(updatedCartAfterRemove));
 
       return { ...state, cartList: updatedCartAfterRemove };
     case TOGGLE_CHECK_ITEM:

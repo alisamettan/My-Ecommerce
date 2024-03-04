@@ -12,12 +12,14 @@ import {
   toggleCheckItemAction,
 } from "../../store/actions/shoppingCartAction";
 import { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CartProductsCard() {
   const cart = useSelector((state) => state.shoppingCart.cartList);
   const dispatch = useDispatch();
   const [inputOpen, setInputOpen] = useState(false);
   const [filterText, setFilterText] = useState("");
+  const history = useHistory();
 
   function productAdder(item) {
     dispatch(setCartListAction(item));
@@ -186,7 +188,10 @@ export default function CartProductsCard() {
                 </button>
               </form>
             )}
-            <button className="text-sm border-1 rounded-md py-2 px-5 bg-orange-500 text-white">
+            <button
+              onClick={() => history.push("/createOrder")}
+              className="text-sm border-1 rounded-md py-2 px-5 bg-orange-500 text-white"
+            >
               Sepeti Onayla <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>
