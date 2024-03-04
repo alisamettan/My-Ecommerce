@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   DECREMENT_CART_ITEM,
   REMOVE_CART_ITEM,
@@ -6,6 +7,7 @@ import {
   SET_PAYMENT,
   TOGGLE_CHECK_ITEM,
 } from "../reducers/shoppingCartReducer";
+import { instance } from "../../hooks/useAxios";
 
 export const setCartListAction = (cartList, operation) => {
   return {
@@ -31,4 +33,26 @@ export const setPaymentAction = (payment) => {
 
 export const setAddress = (address) => {
   return { type: SET_ADDRESS, payload: address };
+};
+
+export const setAddressThunkAction = (formData) => (dispatch) => {
+  instance
+    .post("user/address", formData)
+    .then((res) => {
+      toast.success("Adress başarılı bir şekilde kaydedildi!");
+    })
+    .catch((err) => {
+      console.error(err);
+      toast.error("Adress kaydedilirken bir hata ile karşılaşıldı!");
+    });
+};
+
+export const fetchAddressThunkAction = () => (dispatch) => {
+  instance
+    .get("user/address")
+    .then((res) => dispatch(setAddress(res.data)))
+    .catch((err) => {
+      console.error(err);
+      toast.error("Adress çekilemedi bir hata ile karşılaşıldı!");
+    });
 };

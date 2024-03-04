@@ -1,3 +1,100 @@
+import {
+  faInfo,
+  faPhone,
+  faPlus,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import OrderSummary from "../components/CreateOrderPageComp/OrderSummary";
+
 export default function CreateOrderPage() {
-  return <>okayyyyyy</>;
+  return (
+    <div className="flex px-10 py-10">
+      <div className="flex flex-col w-3/4">
+        <div className="flex">
+          <div className="flex flex-col gap-2 border-2 py-3 w-3/4 px-3 border-b-orange-500">
+            <h1 className="text-2xl text-orange-500">Adres Bilgileri</h1>
+            <p>Ev</p>
+            <p>PTT Evleri Mahallesi Asi Nehri Sokak No:27/3 Sarıyer/İstanbul</p>
+          </div>
+          <div className="flex flex-col gap-2 border-2 py-3 w-3/4 px-3 border-b-orange-500">
+            <h1 className="text-2xl text-orange-500">Ödeme Seçenekleri</h1>
+            <p>
+              <span className="font-extrabold text-black">
+                Banka/Kredi Kartı
+              </span>{" "}
+              veya{" "}
+              <span className="font-extrabold text-black">
+                Alışveriş Kredisi
+              </span>{" "}
+              ile ödemenizi güvenle yapabilirsiniz
+            </p>
+          </div>
+        </div>
+        <div className="w-full border-2 py-4 px-4 mt-3 flex gap-2 items-center">
+          <FontAwesomeIcon
+            className="rounded-full text-white border-1 h-6 w-6 bg-orange-500"
+            icon={faInfo}
+          />
+          <p>
+            Kurumsal faturalı alışveriş yapmak için "Faturamı Aynı Adrese
+            Gönder" tikini kaldırın ve Fatura adresi olarak kayıtlı kurumsal
+            fatura adresinizi seçin.
+          </p>
+        </div>
+        <div className="flex flex-col mt-3 border-2 py-3 px-10">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl">Teslimat Adresi</h1>
+            <div className="flex gap-1">
+              <input type="checkbox" />
+              <label htmlFor="">Faturamı aynı adrese gönder</label>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 py-4">
+            <div className="flex flex-col items-center gap-2 border-1 rounded-md w-[35rem] justify-center py-5 ">
+              <FontAwesomeIcon
+                className="text-orange-500 text-xl"
+                icon={faPlus}
+              />
+              <h1 className="text-lg">Yeni Adres Ekle</h1>
+            </div>
+            <div className="flex flex-wrap gap-x-10 ">
+              <div className="w-[35rem] flex flex-col gap-2 py-4">
+                <div className="flex justify-between">
+                  <div className="flex gap-2 ">
+                    <input type="checkbox" name="" id="" />
+                    <label htmlFor="">Ev</label>
+                  </div>
+                  <p className="text-sm underline cursor-pointer">Düzenle</p>
+                </div>
+                <div className="border-1 rounded-md flex flex-col gap-7 py-4 px-3 h-[150px] justify-center">
+                  <div className="flex justify-between">
+                    <div className="flex gap-2">
+                      <FontAwesomeIcon
+                        className="text-orange-500"
+                        icon={faUser}
+                      />
+                      <h2>Ali Samet</h2>
+                    </div>
+                    <div className="flex gap-2">
+                      <FontAwesomeIcon
+                        className="text-orange-500"
+                        icon={faPhone}
+                      />
+                      <h2 className="text-sm">+905394816079</h2>
+                    </div>
+                  </div>
+                  <p>
+                    PTT Evleri Mahallesi Asi Nehri Sokak No:27 Daire:3
+                    Sarıyer/İstanbul
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <OrderSummary />
+    </div>
+  );
 }
