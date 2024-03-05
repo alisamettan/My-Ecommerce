@@ -5,8 +5,10 @@ import {
   REMOVE_CART_ITEM,
   SET_ADDRESS,
   SET_CART_LIST,
+  SET_LOADING,
   SET_PAYMENT,
   TOGGLE_CHECK_ITEM,
+  UPDATE_ADDRESS,
 } from "../reducers/shoppingCartReducer";
 import { instance } from "../../hooks/useAxios";
 
@@ -38,6 +40,12 @@ export const setAddress = (address) => {
 export const removeAddressAction = (address) => {
   return { type: REMOVE_ADDRESS, payload: address };
 };
+export const updateAddressAction = (address) => {
+  return { type: UPDATE_ADDRESS, payload: address };
+};
+export const setLoading = (loading) => {
+  return { type: SET_LOADING, payload: loading };
+};
 
 export const setAddressThunkAction = (formData) => (dispatch) => {
   const token = localStorage.getItem("token");
@@ -56,13 +64,38 @@ export const setAddressThunkAction = (formData) => (dispatch) => {
 export const removeAddressThunkAction = (id) => (dispatch) => {
   const token = localStorage.getItem("token");
   instance
-    .delete(`/user/address/${id}`, {
+    .delete("/user/address/" + id, {
       headers: {
         Authorization: token,
       },
     })
     .then((res) => {
-      dispatch(setAddress(res.data));
+      dispatch(removeAddressAction(id));
+      console.log(res.data);
+      toast.success("Address deleted successfully");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      toast.error("Error deleting address");
+      console.error(err);
+    });
+};
+
+export const updateAddressThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  dispatch(setLoading(true));
+  instance
+    .put(`/user/address`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      dispatch(updateAddressAction(res.data));
+      toast.success("Address updated successfully");
+      dispatch(setLoading(false));
+    })
+    .catch((err) => {
+      console.error(err.response);
+      toast.error("Error updating address");
+    });
 };

@@ -11,7 +11,6 @@ import { useEffect, useState } from "react";
 import { instance } from "../hooks/useAxios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  removeAddressAction,
   removeAddressThunkAction,
   setAddress,
 } from "../store/actions/shoppingCartAction";
@@ -22,6 +21,7 @@ export default function CreateOrderPage() {
   const address = useSelector((state) => state.shoppingCart.address);
   const token = localStorage.getItem("token");
   const [modal, setModal] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState();
 
   useEffect(() => {
     instance
@@ -37,6 +37,12 @@ export default function CreateOrderPage() {
 
   function removeAddress(id) {
     dispatch(removeAddressThunkAction(id));
+    console.log(id);
+  }
+
+  function openEditModal(address) {
+    setSelectedAddress(address);
+    setModal(true);
   }
 
   return (
@@ -84,7 +90,7 @@ export default function CreateOrderPage() {
           <div className="flex flex-col gap-2 py-4">
             <div
               onClick={() => setModal(!modal)}
-              className="flex flex-col items-center gap-2 border-1 rounded-md w-[35rem] justify-center py-5 hover:bg-gray-200 cursor-pointer"
+              className="flex flex-col items-center gap-2 border-1 rounded-md w-[40%] justify-center py-5 hover:bg-gray-200 cursor-pointer"
             >
               <FontAwesomeIcon
                 className="text-orange-500 text-xl"
@@ -92,20 +98,26 @@ export default function CreateOrderPage() {
               />
               <h1 className="text-lg">Yeni Adres Ekle</h1>
             </div>
-            {true && <AddressModal modal={modal} setModal={setModal} />}
+            {true && (
+              <AddressModal
+                modal={modal}
+                setModal={setModal}
+                address={selectedAddress}
+              />
+            )}
             <div className="flex flex-wrap gap-x-10 ">
               {address.map((item, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="w-[35rem] flex flex-col gap-2 py-4"
-                  >
+                  <div key={index} className="w-[40%] flex flex-col gap-2 py-4">
                     <div className="flex justify-between">
                       <div className="flex gap-2 ">
                         <input type="checkbox" name="" id="" />
                         <label htmlFor="">{item.title}</label>
                       </div>
-                      <p className="text-sm underline cursor-pointer">
+                      <p
+                        onClick={() => openEditModal(item)}
+                        className="text-sm underline cursor-pointer"
+                      >
                         Düzenle
                       </p>
                     </div>
@@ -133,7 +145,8 @@ export default function CreateOrderPage() {
                         {item.address}
                         <br />
                         {item.neighborhood} <br />
-                        {item.city}/{item.district}
+                        {item.city}
+                        {item.district}
                       </p>
                     </div>
                     <FontAwesomeIcon

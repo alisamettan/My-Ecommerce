@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import {
@@ -7,15 +7,19 @@ import {
   getNeighbourhoodsByCityCodeAndDistrict,
   getCityCodes,
 } from "turkey-neighbourhoods";
-import { setAddressThunkAction } from "../../store/actions/shoppingCartAction";
+import {
+  setAddressThunkAction,
+  updateAddressThunkAction,
+} from "../../store/actions/shoppingCartAction";
 import { useDispatch } from "react-redux";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function AddressModal({ modal, setModal }) {
+export default function AddressModal({ modal, setModal, address }) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -54,9 +58,33 @@ export default function AddressModal({ modal, setModal }) {
       district: formData.district,
       neighborhood: formData.neighborhood,
     };
+    console.log("FormData:", formData);
+    if (address) {
+      const updatedFormData = {
+        ...address,
+        ...postData,
+      };
+      dispatch(updateAddressThunkAction(updatedFormData));
+      console.log("ID:", address.id);
+      console.log("FormData:", postData);
+    } else {
+      dispatch(setAddressThunkAction(postData));
+    }
 
-    dispatch(setAddressThunkAction(postData));
+    setModal(false);
   };
+
+  useEffect(() => {
+    // Use useEffect to dynamically update form values when the address prop changes
+    setValue("title", address?.title || "");
+    setValue("name", address?.name || "");
+    setValue("surname", address?.surname || "");
+    setValue("phone", address?.phone || "");
+    setValue("city", address?.city || "");
+    setValue("district", address?.district || "");
+    setValue("neighborhood", address?.neighborhood || "");
+    setValue("address", address?.address || "");
+  }, [address, setValue]);
 
   const clickHandleCity = (e) => {
     const value = e.target.value;
@@ -99,7 +127,6 @@ export default function AddressModal({ modal, setModal }) {
                 />
               </div>
             </div>
-
             <div className="flex justify-between gap-1">
               <div className=" flex flex-col sm:w-2/3 w-full">
                 <label className="font-bold text-xl p-3">Name</label>
@@ -240,7 +267,6 @@ export default function AddressModal({ modal, setModal }) {
             <button
               className="flex justify-center hover:border-orange-700 hover:border hover:text-black bg-orange-700 text-white px-6 py-3 rounded-md text-xl  mt-6 hover:bg-white cursor-pointer text-center"
               type="submit"
-              formNoValidate="formnovalidate"
             >
               Submit
             </button>
