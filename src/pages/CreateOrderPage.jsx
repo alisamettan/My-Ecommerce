@@ -138,15 +138,14 @@ export default function CreateOrderPage() {
                             className="text-orange-500"
                             icon={faPhone}
                           />
-                          <h2 className="text-sm">+905394816079</h2>
+                          <h2 className="text-sm">{item.phone}</h2>
                         </div>
                       </div>
                       <p>
                         {item.address}
                         <br />
                         {item.neighborhood} <br />
-                        {item.city}
-                        {item.district}
+                        {item.city} {item.district}
                       </p>
                     </div>
                     <FontAwesomeIcon

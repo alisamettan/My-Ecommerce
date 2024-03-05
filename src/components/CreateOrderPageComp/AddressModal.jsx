@@ -67,11 +67,11 @@ export default function AddressModal({ modal, setModal, address }) {
       dispatch(updateAddressThunkAction(updatedFormData));
       console.log("ID:", address.id);
       console.log("FormData:", postData);
+      setModal(false);
     } else {
       dispatch(setAddressThunkAction(postData));
+      setModal(false);
     }
-
-    setModal(false);
   };
 
   useEffect(() => {
