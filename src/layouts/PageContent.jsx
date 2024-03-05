@@ -9,6 +9,8 @@ import BlogPage from "../pages/BlogPage";
 import SignUp from "../pages/SignUp";
 import Login from "../pages/Login";
 import CartPage from "../pages/CartPage";
+import PrivateRoute from "../components/CreateOrderPageComp/PrivateRoute";
+import CreateOrderPage from "../pages/CreateOrderPage";
 
 export default function PageContent() {
   return (
@@ -43,6 +45,9 @@ export default function PageContent() {
       <Route path="/cart">
         <CartPage />
       </Route>
+      <PrivateRoute path="/createOrder">
+        <CreateOrderPage />
+      </PrivateRoute>
     </Switch>
   );
 }

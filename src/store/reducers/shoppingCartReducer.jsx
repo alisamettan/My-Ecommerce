@@ -4,11 +4,16 @@ export const SET_ADDRESS = "SET_ADDRESS";
 export const DECREMENT_CART_ITEM = "DECREMENT_CART_ITEM";
 export const TOGGLE_CHECK_ITEM = "TOGGLE_CHECK_ITEM";
 export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
+export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
+export const SET_LOADING = "SET_LOADING";
 
+const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
-  cartList: [],
+  cartList: storedCartList,
   payment: {},
   address: [],
+  loading: false,
 };
 
 export const shoppingCartReducer = (state = shoppingCart, action) => {
@@ -23,15 +28,18 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
         updatedCartList[existingProductIndex].count += 1;
         updatedCartList[existingProductIndex].checked = true;
 
+        localStorage.setItem("cartList", JSON.stringify(updatedCartList));
+
         return { ...state, cartList: updatedCartList };
       } else {
-        return {
-          ...state,
-          cartList: [
-            ...state.cartList,
-            { count: 1, checked: true, ...action.payload },
-          ],
-        };
+        const updatedCartList = [
+          ...state.cartList,
+          { count: 1, checked: true, ...action.payload },
+        ];
+
+        localStorage.setItem("cartList", JSON.stringify(updatedCartList));
+
+        return { ...state, cartList: updatedCartList };
       }
     case DECREMENT_CART_ITEM:
       const updatedCart = state.cartList
@@ -42,6 +50,8 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
           return item;
         })
         .filter((item) => item.count > 0);
+
+      localStorage.setItem("cartList", JSON.stringify(updatedCart));
 
       return { ...state, cartList: updatedCart };
 
@@ -63,8 +73,25 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
     case SET_PAYMENT:
       return { ...state, payment: action.payload };
     case SET_ADDRESS:
-      return { ...state, address: action.payload };
+      console.log("SET_ADDRESS action payload:", action.payload);
+      return { ...state, address: [...state.address, ...action.payload] };
+    case REMOVE_ADDRESS:
+      const updatedAddressList = state.address.filter(
+        (item) => item.id !== action.payload.id
+      );
 
+      return { ...state, address: updatedAddressList };
+    case UPDATE_ADDRESS:
+      return {
+        ...state,
+        address: state.address.map((address) =>
+          address.id === action.payload.id
+            ? { ...address, ...action.payload }
+            : address
+        ),
+      };
+    case SET_LOADING:
+      return { ...state, loading: action.payload };
     default:
       return state;
   }
