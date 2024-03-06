@@ -59,7 +59,7 @@ export default function AddressModal({ modal, setModal, address }) {
       neighborhood: formData.neighborhood,
     };
     console.log("FormData:", formData);
-    if (address) {
+    if (address && address.id) {
       const updatedFormData = {
         ...address,
         ...postData,
