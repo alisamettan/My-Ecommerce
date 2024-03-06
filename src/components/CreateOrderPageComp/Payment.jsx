@@ -1,14 +1,17 @@
-import { faInfo } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import AddressModal from "./AddressModal";
 import CardModal from "./CardModal";
 import { instance } from "../../hooks/useAxios";
 
 export default function Payment() {
   const [cardModal, setCardModal] = useState(false);
   const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
   const token = localStorage.getItem("token");
+
+  function editCard(card) {
+    setSelectedCard(card);
+    setCardModal(true);
+  }
 
   useEffect(() => {
     instance
@@ -19,6 +22,13 @@ export default function Payment() {
       })
       .then((res) => setCards(res.data));
   }, []);
+
+  function formatCardNumber(cardNumber) {
+    // Kart numarasının sadece 6. ve 13. karakterleri gösterilsin, geri kalanları * olarak değiştirilsin
+    const visiblePart =
+      cardNumber.slice(0, 6) + "*".repeat(7) + cardNumber.slice(13);
+    return visiblePart.match(/.{1,4}/g).join(" "); // Dört rakamlık gruplara ayır ve aralarına boşluk ekle
+  }
 
   return (
     <div className="">
@@ -40,12 +50,20 @@ export default function Payment() {
               >
                 Başka bir Kart ile Ödeme Yap
               </p>
-              <CardModal cardModal={cardModal} setCardModal={setCardModal} />
+              <CardModal
+                cardModal={cardModal}
+                setCardModal={setCardModal}
+                card={selectedCard}
+              />
             </div>
             <div className="py-6 flex flex-wrap gap-3">
               {cards.map((card, index) => {
                 return (
-                  <div key={index} className="flex flex-col gap-2">
+                  <div
+                    onClick={() => editCard(card)}
+                    key={index}
+                    className="flex flex-col gap-2 cursor-pointer"
+                  >
                     <div className="flex items-center gap-2">
                       <input type="checkbox" />
                       <label className="text-black font-extrabold" htmlFor="">
@@ -67,7 +85,7 @@ export default function Payment() {
                           />
                         </div>
                         <div className="text-end flex flex-col pt-6">
-                          <p>{card.card_no}</p>
+                          <p>{formatCardNumber(card.card_no)}</p>
                           <p>
                             {card.expire_month} / {card.expire_year}
                           </p>

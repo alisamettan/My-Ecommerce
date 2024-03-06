@@ -4,13 +4,18 @@ import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import { instance } from "../../hooks/useAxios";
 import { useDispatch } from "react-redux";
-import { addCardsThunkAction } from "../../store/actions/shoppingCartAction";
+import {
+  addCardsThunkAction,
+  updateCardThunkAction,
+} from "../../store/actions/shoppingCartAction";
+import { useEffect } from "react";
 
-export default function CardModal({ cardModal, setCardModal }) {
+export default function CardModal({ cardModal, setCardModal, card }) {
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -37,8 +42,26 @@ export default function CardModal({ cardModal, setCardModal }) {
       expire_year: formData.year,
       name_on_card: formData.name,
     };
-    dispatch(addCardsThunkAction(postData));
+    if (card && card.id) {
+      const updatedFormData = {
+        ...card,
+        ...postData,
+      };
+      dispatch(updateCardThunkAction(updatedFormData));
+      setCardModal(!cardModal);
+    } else {
+      dispatch(addCardsThunkAction(postData));
+      setCardModal(!cardModal);
+    }
   };
+
+  useEffect(() => {
+    // Use useEffect to dynamically update form values when the address prop changes
+    setValue("card_number", card?.card_number || "");
+    setValue("month", card?.month || "");
+    setValue("year", card?.year || "");
+    setValue("name", card?.name || "");
+  }, [card, setValue]);
 
   return (
     <Modal

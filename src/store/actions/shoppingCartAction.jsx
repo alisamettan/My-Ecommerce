@@ -116,3 +116,21 @@ export const addCardsThunkAction = (formData) => (dispatch) => {
       dispatch(addCard(res.data));
     });
 };
+
+export const updateCardThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  instance
+    .put(`/user/card`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      toast.success("Card updated successfully");
+    })
+    .catch((err) => {
+      console.error(err.response);
+      toast.error("Error updating card");
+    });
+};
