@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import {
+  ADD_CARDS,
   DECREMENT_CART_ITEM,
   REMOVE_ADDRESS,
   REMOVE_CART_ITEM,
@@ -45,6 +46,9 @@ export const updateAddressAction = (address) => {
 };
 export const setLoading = (loading) => {
   return { type: SET_LOADING, payload: loading };
+};
+export const addCard = (card) => {
+  return { type: ADD_CARDS, payload: card };
 };
 
 export const setAddressThunkAction = (formData) => (dispatch) => {
@@ -97,5 +101,36 @@ export const updateAddressThunkAction = (formData) => (dispatch) => {
     .catch((err) => {
       console.error(err.response);
       toast.error("Error updating address");
+    });
+};
+
+export const addCardsThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  instance
+    .post("/user/card", formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      dispatch(addCard(res.data));
+    });
+};
+
+export const updateCardThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  instance
+    .put(`/user/card`, formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      toast.success("Card updated successfully");
+    })
+    .catch((err) => {
+      console.error(err.response);
+      toast.error("Error updating card");
     });
 };

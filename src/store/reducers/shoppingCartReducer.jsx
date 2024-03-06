@@ -7,12 +7,14 @@ export const REMOVE_CART_ITEM = "REMOVE_CART_ITEM";
 export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 export const SET_LOADING = "SET_LOADING";
+export const ADD_CARDS = "ADD_CARDS";
 
 const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
   cartList: storedCartList,
   payment: {},
   address: [],
+  cards: [],
   loading: false,
 };
 
@@ -90,6 +92,8 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
             : address
         ),
       };
+    case ADD_CARDS:
+      return { ...state, cards: [...state.cards, action.payload] };
     case SET_LOADING:
       return { ...state, loading: action.payload };
     default:
