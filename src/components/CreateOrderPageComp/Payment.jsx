@@ -1,7 +1,25 @@
 import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
+import AddressModal from "./AddressModal";
+import CardModal from "./CardModal";
+import { instance } from "../../hooks/useAxios";
 
 export default function Payment() {
+  const [cardModal, setCardModal] = useState(false);
+  const [cards, setCards] = useState([]);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    instance
+      .get("/user/card", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => setCards(res.data));
+  }, []);
+
   return (
     <div className="">
       <div className="w-full border-2 py-4 px-4 mt-3 flex gap-2 items-center">
@@ -16,65 +34,50 @@ export default function Payment() {
           <div className="flex flex-col w-[50%]">
             <div className="flex justify-between pr-6 items-center">
               <h1 className="text-xl">Kart Bilgileri</h1>
-              <p className="underline">Başka bir Kart ile Ödeme Yap</p>
+              <p
+                onClick={() => setCardModal(!cardModal)}
+                className="underline cursor-pointer"
+              >
+                Başka bir Kart ile Ödeme Yap
+              </p>
+              <CardModal cardModal={cardModal} setCardModal={setCardModal} />
             </div>
             <div className="py-6 flex flex-wrap gap-3">
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" />
-                  <label className="text-black font-extrabold" htmlFor="">
-                    Bonus Kartım
-                  </label>
-                </div>
-                <div className="w-[300px] h-[150px] border-1 rounded-lg">
-                  <div className="flex flex-col px-3">
-                    <div className="flex items-center justify-between ">
-                      <img
-                        className="w-20"
-                        src="https://mekaskablo.com/wp-content/uploads/2019/10/bonus.png"
-                        alt=""
-                      />
-                      <img
-                        className="w-12 h-8"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
-                        alt=""
-                      />
+              {cards.map((card, index) => {
+                return (
+                  <div key={index} className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <input type="checkbox" />
+                      <label className="text-black font-extrabold" htmlFor="">
+                        Bonus Kartım
+                      </label>
                     </div>
-                    <div className="text-end flex flex-col pt-6">
-                      <p>555555555555555</p>
-                      <p>8 / 2027</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <input type="checkbox" />
-                  <label className="text-black font-extrabold" htmlFor="">
-                    Bonus Kartım
-                  </label>
-                </div>
-                <div className="w-[300px] h-[150px] border-1 rounded-lg">
-                  <div className="flex flex-col px-3">
-                    <div className="flex items-center justify-between ">
-                      <img
-                        className="w-20"
-                        src="https://mekaskablo.com/wp-content/uploads/2019/10/bonus.png"
-                        alt=""
-                      />
-                      <img
-                        className="w-12 h-8"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
-                        alt=""
-                      />
-                    </div>
-                    <div className="text-end flex flex-col pt-6">
-                      <p>555555555555555</p>
-                      <p>8 / 2027</p>
+                    <div className="w-[300px] h-[150px] border-1 rounded-lg">
+                      <div className="flex flex-col px-3">
+                        <div className="flex items-center justify-between ">
+                          <img
+                            className="w-20"
+                            src="https://mekaskablo.com/wp-content/uploads/2019/10/bonus.png"
+                            alt=""
+                          />
+                          <img
+                            className="w-12 h-8"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Mastercard_2019_logo.svg/1200px-Mastercard_2019_logo.svg.png"
+                            alt=""
+                          />
+                        </div>
+                        <div className="text-end flex flex-col pt-6">
+                          <p>{card.card_no}</p>
+                          <p>
+                            {card.expire_month} / {card.expire_year}
+                          </p>
+                          <p>{card.name_on_card}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
           <div className="w-[50%] border-l-2 px-3">
