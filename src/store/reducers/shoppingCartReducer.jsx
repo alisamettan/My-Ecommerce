@@ -8,6 +8,7 @@ export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 export const SET_LOADING = "SET_LOADING";
 export const ADD_CARDS = "ADD_CARDS";
+export const SET_SELECTED_CARD = "SET_SELECTED_CARD";
 
 const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
@@ -16,6 +17,7 @@ const shoppingCart = {
   address: [],
   cards: [],
   loading: false,
+  checkedCard: {},
 };
 
 export const shoppingCartReducer = (state = shoppingCart, action) => {
@@ -94,6 +96,11 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
       };
     case ADD_CARDS:
       return { ...state, cards: [...state.cards, action.payload] };
+    case SET_SELECTED_CARD:
+      return {
+        ...state,
+        checkedCard: action.payload,
+      };
     case SET_LOADING:
       return { ...state, loading: action.payload };
     default:

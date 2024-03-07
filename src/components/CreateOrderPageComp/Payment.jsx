@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import CardModal from "./CardModal";
 import { instance } from "../../hooks/useAxios";
+import { useDispatch, useSelector } from "react-redux";
+import { setCheckedCard } from "../../store/actions/shoppingCartAction";
 
 export default function Payment() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.shoppingCart.cartList);
   const [cardModal, setCardModal] = useState(false);
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
+  const checkedCard = useSelector((state) => state.shoppingCart.checkedCard);
   const token = localStorage.getItem("token");
+
+  const totalAmount = cart.reduce((acc, item) => {
+    return acc + item.count * item.price;
+  }, 0);
+
+  const total = totalAmount < 150 ? totalAmount + 29 : totalAmount;
 
   function editCard(card) {
     setSelectedCard(card);
@@ -28,6 +39,11 @@ export default function Payment() {
     const visiblePart =
       cardNumber.slice(0, 6) + "*".repeat(7) + cardNumber.slice(13);
     return visiblePart.match(/.{1,4}/g).join(" "); // Dört rakamlık gruplara ayır ve aralarına boşluk ekle
+  }
+
+  function handleCheckboxChange(card) {
+    // Seçilen kartı Redux store'a gönder
+    dispatch(setCheckedCard(card));
   }
 
   return (
@@ -60,17 +76,23 @@ export default function Payment() {
               {cards.map((card, index) => {
                 return (
                   <div
-                    onClick={() => editCard(card)}
                     key={index}
                     className="flex flex-col gap-2 cursor-pointer"
                   >
                     <div className="flex items-center gap-2">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={checkedCard.id === card.id} // Burada seçilen kartın bir benzersiz bir özelliğini kullanın
+                        onChange={() => handleCheckboxChange(card)}
+                      />
                       <label className="text-black font-extrabold" htmlFor="">
                         Bonus Kartım
                       </label>
                     </div>
-                    <div className="w-[300px] h-[150px] border-1 rounded-lg">
+                    <div
+                      onClick={() => editCard(card)}
+                      className="w-[300px] h-[150px] border-1 rounded-lg"
+                    >
                       <div className="flex flex-col px-3">
                         <div className="flex items-center justify-between ">
                           <img
@@ -113,7 +135,7 @@ export default function Payment() {
                   <input type="checkbox" checked="true" />
                   <label htmlFor="">Tek Çekim</label>
                 </div>
-                <p>6666 $</p>
+                <p>{total} $</p>
               </div>
             </div>
           </div>

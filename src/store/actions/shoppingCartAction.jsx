@@ -8,6 +8,7 @@ import {
   SET_CART_LIST,
   SET_LOADING,
   SET_PAYMENT,
+  SET_SELECTED_CARD,
   TOGGLE_CHECK_ITEM,
   UPDATE_ADDRESS,
 } from "../reducers/shoppingCartReducer";
@@ -49,6 +50,9 @@ export const setLoading = (loading) => {
 };
 export const addCard = (card) => {
   return { type: ADD_CARDS, payload: card };
+};
+export const setCheckedCard = (card) => {
+  return { type: SET_SELECTED_CARD, payload: card };
 };
 
 export const setAddressThunkAction = (formData) => (dispatch) => {
@@ -133,4 +137,20 @@ export const updateCardThunkAction = (formData) => (dispatch) => {
       console.error(err.response);
       toast.error("Error updating card");
     });
+};
+
+export const orderThunkAction = (formData) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  dispatch(setLoading(true));
+  instance
+    .post("/order", formData, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+      dispatch(setLoading(false));
+    })
+    .catch((err) => console.error(err));
 };

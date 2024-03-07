@@ -1,9 +1,17 @@
 import { faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { instance } from "../../hooks/useAxios";
+import {
+  orderThunkAction,
+  setLoading,
+} from "../../store/actions/shoppingCartAction";
 
-export default function OrderSummary() {
+export default function OrderSummary({ setOption, option, selectedAddress }) {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const cart = useSelector((state) => state.shoppingCart.cartList);
+  const checkedCard = useSelector((state) => state.shoppingCart.checkedCard);
   const toFixed2 = (number) => {
     return (Math.round(number * 100) / 100).toFixed(2);
   };
@@ -29,6 +37,33 @@ export default function OrderSummary() {
       }
     }
     return totalPrice;
+  }
+
+  function giveOrder() {
+    const productsBought = [];
+    for (const product of cart) {
+      productsBought.push({
+        product_id: product.id,
+        count: product.count,
+        detail: product.name,
+      });
+    }
+    const postData = {
+      address_id: selectedAddress.id,
+      order_date: new Date().toISOString(),
+      card_no: checkedCard.card_no,
+      card_name: checkedCard.name_on_card,
+      card_expire_month: checkedCard.expire_month,
+      card_expire_year: checkedCard.expire_year,
+      card_ccv: 111,
+      price: cargoCalculator(),
+      products: [...productsBought],
+    };
+    if (option === "payment") {
+      dispatch(orderThunkAction(postData));
+    } else {
+      setOption("payment");
+    }
   }
   return (
     <div className="flex flex-col gap-2  mx-8 border-1 px-4  py-3 h-[20%] w-[25%]">
@@ -67,8 +102,12 @@ export default function OrderSummary() {
             'ni okudum,onaylıyorum.
           </label>
         </div>
-        <button className="text-sm border-1 rounded-md py-2 px-5 bg-orange-500 text-white">
-          Kaydet ve Devam Et <FontAwesomeIcon icon={faChevronRight} />
+        <button
+          onClick={giveOrder}
+          className="text-sm border-1 rounded-md py-2 px-5 bg-orange-500 text-white"
+        >
+          {option === "address" ? " Kaydet ve Devam Et" : "Ödeme Yap"}{" "}
+          <FontAwesomeIcon icon={faChevronRight} />
         </button>
       </div>
     </div>

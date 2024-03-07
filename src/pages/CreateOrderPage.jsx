@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   removeAddressThunkAction,
   setAddress,
+  setLoading,
 } from "../store/actions/shoppingCartAction";
 import AddressModal from "../components/CreateOrderPageComp/AddressModal";
 import Payment from "../components/CreateOrderPageComp/Payment";
@@ -26,6 +27,7 @@ export default function CreateOrderPage() {
   const [option, setOption] = useState("address");
 
   useEffect(() => {
+    dispatch(setLoading(true));
     instance
       .get("/user/address", {
         headers: {
@@ -34,6 +36,7 @@ export default function CreateOrderPage() {
       })
       .then((res) => {
         dispatch(setAddress(res.data));
+        dispatch(setLoading(false));
       });
   }, []);
 
@@ -124,6 +127,7 @@ export default function CreateOrderPage() {
             fatura adresinizi seçin.
           </p>
         </div>
+
         {option === "address" && (
           <div className="flex flex-col mt-3 border-2 py-3 px-10">
             <div className="flex justify-between items-center">
@@ -217,7 +221,11 @@ export default function CreateOrderPage() {
         )}
         {option === "payment" && <Payment />}
       </div>
-      <OrderSummary />
+      <OrderSummary
+        setOption={setOption}
+        option={option}
+        selectedAddress={selectedAddress}
+      />
     </div>
   );
 }
