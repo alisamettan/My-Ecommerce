@@ -141,7 +141,7 @@ export default function CartProductsCard() {
         })}
       </div>
       {cart.length > 0 ? (
-        <div className="flex flex-col gap-2  mx-8 border-1 px-4  py-3 h-[20%] w-[25%]">
+        <div className="flex flex-col gap-2  mx-8 border-1 px-3  py-3 h-[20%] w-[30%]">
           <div className="flex flex-col gap-2 ">
             <h1 className="pb-4 text-2xl">Sipariş Özeti</h1>
             <div className="flex justify-between">

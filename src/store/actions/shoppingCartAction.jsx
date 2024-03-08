@@ -151,6 +151,7 @@ export const orderThunkAction = (formData) => (dispatch) => {
     .then((res) => {
       console.log(res);
       dispatch(setLoading(false));
+      toast.success("Your Order Has Been Received:))");
     })
     .catch((err) => console.error(err));
 };
