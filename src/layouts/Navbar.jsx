@@ -226,7 +226,7 @@ export default function Navbar() {
                       );
                     }
                   })}
-                  <div className="flex gap-3 ">
+                  <div className="flex flex-wrap gap-3 ">
                     <button
                       onClick={() => history.push("/cart")}
                       className="border-1 py-2 px-7 rounded-md bg-gray-100 hover:bg-gray-700"
@@ -235,6 +235,12 @@ export default function Navbar() {
                     </button>
                     <button className="border-1 py-2 px-3 rounded-md bg-orange-500 text-white hover:bg-orange-900">
                       Siparişi Tamamla
+                    </button>
+                    <button
+                      onClick={() => history.push("/previousOrders")}
+                      className="border-1 m-auto py-2 px-3 rounded-md bg-orange-800 text-white hover:bg-orange-900"
+                    >
+                      Önceki Siparişlerim
                     </button>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import {
   ADD_CARDS,
+  CLEAR_CART,
   DECREMENT_CART_ITEM,
   REMOVE_ADDRESS,
   REMOVE_CART_ITEM,
@@ -53,6 +54,10 @@ export const addCard = (card) => {
 };
 export const setCheckedCard = (card) => {
   return { type: SET_SELECTED_CARD, payload: card };
+};
+
+export const clearCartAction = () => {
+  return { type: CLEAR_CART };
 };
 
 export const setAddressThunkAction = (formData) => (dispatch) => {

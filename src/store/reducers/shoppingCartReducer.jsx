@@ -9,6 +9,7 @@ export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 export const SET_LOADING = "SET_LOADING";
 export const ADD_CARDS = "ADD_CARDS";
 export const SET_SELECTED_CARD = "SET_SELECTED_CARD";
+export const CLEAR_CART = "CLEAR_CART";
 
 const storedCartList = JSON.parse(localStorage.getItem("cartList")) || [];
 const shoppingCart = {
@@ -103,6 +104,12 @@ export const shoppingCartReducer = (state = shoppingCart, action) => {
       };
     case SET_LOADING:
       return { ...state, loading: action.payload };
+    case CLEAR_CART:
+      localStorage.removeItem("cartList");
+      return {
+        ...state,
+        cartList: [],
+      };
     default:
       return state;
   }

@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { instance } from "../../hooks/useAxios";
 import {
+  clearCartAction,
   orderThunkAction,
+  setCartListAction,
   setLoading,
 } from "../../store/actions/shoppingCartAction";
 
@@ -61,6 +63,7 @@ export default function OrderSummary({ setOption, option, selectedAddress }) {
     };
     if (option === "payment") {
       dispatch(orderThunkAction(postData));
+      dispatch(clearCartAction([]));
     } else {
       setOption("payment");
     }

@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import CartPage from "../pages/CartPage";
 import PrivateRoute from "../components/CreateOrderPageComp/PrivateRoute";
 import CreateOrderPage from "../pages/CreateOrderPage";
+import PreviousOrders from "../pages/PreviousOrders";
 
 export default function PageContent() {
   return (
@@ -44,6 +45,9 @@ export default function PageContent() {
       </Route>
       <Route path="/cart">
         <CartPage />
+      </Route>
+      <Route path="/previousOrders">
+        <PreviousOrders />
       </Route>
       <PrivateRoute path="/createOrder">
         <CreateOrderPage />
