@@ -53,13 +53,11 @@ export default function Navbar() {
   return (
     <header className=" bg-white flex justify-between items-center px-24 py-6 sm:flex-col">
       <div className=" flex justify-center items-center gap-44 sm:flex-col sm:gap-14">
-        <div className="sm:flex sm:items-center sm:gap-48 ">
+        <div className="sm:flex sm:items-center sm:gap-80 ">
           <NavLink className="font-bold text-[30px]" to="/">
             Bandage
           </NavLink>
           <div className="hidden sm:gap-4 sm:flex ">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-            <FontAwesomeIcon icon={faCartShopping} />
             <FontAwesomeIcon onClick={openerCloser} icon={faBars} />
           </div>
         </div>
@@ -158,7 +156,7 @@ export default function Navbar() {
           <NavLink to="/team">Team</NavLink>
         </div>
       </div>
-      <div className="font-bold text-lg text-[_#23A6F0] flex flex-row gap-6  items-center sm:hidden">
+      <div className="font-bold text-lg text-[_#23A6F0] flex gap-6  items-center sm:flex-col sm:pt-4">
         <div className="flex justify-center items-center gap-1">
           {user ? (
             <>
@@ -179,12 +177,12 @@ export default function Navbar() {
           )}
         </div>
         <div className="flex gap-6 items-center">
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <FontAwesomeIcon className="sm:hidden" icon={faMagnifyingGlass} />
           <div className="flex items-center gap-2">
             <Dropdown
               toggle={() => setDropDown(!dropDown)}
               isOpen={dropDown}
-              direction="left"
+              direction="bottom"
             >
               <DropdownToggle data-toggle="dropdown" tag="span">
                 <div className="flex gap-1 items-center">
@@ -247,10 +245,10 @@ export default function Navbar() {
               </DropdownMenu>
             </Dropdown>
           </div>
-          <FontAwesomeIcon icon={faHeart} />
+          <FontAwesomeIcon className="sm:hidden" icon={faHeart} />
           <FontAwesomeIcon
             onClick={logOut}
-            className="text-gray-800 pl-4 cursor-pointer"
+            className="text-gray-800 pl-4 cursor-pointer sm:pl-0"
             icon={faRightFromBracket}
           />
         </div>

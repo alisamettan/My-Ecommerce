@@ -5,7 +5,7 @@ export default function PreviousOrders() {
   const slicedProducts = products.slice(0, 4);
 
   return (
-    <div className="py-16 px-12 w-[70%] m-auto">
+    <div className="py-16 px-12 w-[70%] m-auto sm:w-[100%]">
       <div className="flex flex-col gap-2">
         {slicedProducts.map((product, index) => {
           return (

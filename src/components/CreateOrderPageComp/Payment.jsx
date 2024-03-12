@@ -72,7 +72,7 @@ export default function Payment() {
                 card={selectedCard}
               />
             </div>
-            <div className="py-6 flex flex-wrap gap-3">
+            <div className="py-6 flex flex-wrap gap-3 ">
               {cards.map((card, index) => {
                 return (
                   <div
@@ -82,7 +82,7 @@ export default function Payment() {
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
-                        checked={checkedCard.id === card.id} // Burada seçilen kartın bir benzersiz bir özelliğini kullanın
+                        checked={checkedCard.id === card.id}
                         onChange={() => handleCheckboxChange(card)}
                       />
                       <label className="text-black font-extrabold" htmlFor="">
@@ -91,7 +91,7 @@ export default function Payment() {
                     </div>
                     <div
                       onClick={() => editCard(card)}
-                      className="w-[300px] h-[150px] border-1 rounded-lg"
+                      className="w-[300px] h-[150px] border-1 rounded-lg sm:w-[120%]"
                     >
                       <div className="flex flex-col px-3">
                         <div className="flex items-center justify-between ">
@@ -125,7 +125,7 @@ export default function Payment() {
               <h1 className="text-2xl">Taksit Seçenekleri</h1>
               <p>Kartınıza uygun taksit seçeneği seçiniz.</p>
             </div>
-            <div className="border-1 w-[70%] flex flex-col gap-3 mt-4 py-3 px-4 rounded-lg">
+            <div className="border-1 w-[70%] flex flex-col gap-3 mt-4 py-3 px-4 rounded-lg sm:w-[110%]">
               <div className="flex justify-between border-b-2 py-2">
                 <p>Taksit Sayısı</p>
                 <p>Aylık Ödeme</p>

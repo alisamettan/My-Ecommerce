@@ -69,8 +69,8 @@ export default function CreateOrderPage() {
   };
 
   return (
-    <div className="flex px-10 py-10">
-      <div className="flex flex-col w-3/4">
+    <div className="flex px-10 py-10 sm:flex-col-reverse sm:gap-4">
+      <div className="flex flex-col w-3/4 sm:m-auto sm:w-[100%]">
         <div className="flex">
           <div
             onClick={() => setterAP("address")}
@@ -130,9 +130,9 @@ export default function CreateOrderPage() {
 
         {option === "address" && (
           <div className="flex flex-col mt-3 border-2 py-3 px-10">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center sm:text-center">
               <h1 className="text-xl">Teslimat Adresi</h1>
-              <div className="flex gap-1">
+              <div className="flex gap-1 ">
                 <input type="checkbox" />
                 <label htmlFor="">Faturamı aynı adrese gönder</label>
               </div>
@@ -140,7 +140,7 @@ export default function CreateOrderPage() {
             <div className="flex flex-col gap-2 py-4">
               <div
                 onClick={() => setModal(!modal)}
-                className="flex flex-col items-center gap-2 border-1 rounded-md w-[40%] justify-center py-5 hover:bg-gray-200 cursor-pointer"
+                className="flex flex-col items-center gap-2 border-1 rounded-md w-[40%] justify-center py-5 hover:bg-gray-200 cursor-pointer sm:w-[90%] sm:m-auto"
               >
                 <FontAwesomeIcon
                   className="text-orange-500 text-xl"
@@ -155,12 +155,12 @@ export default function CreateOrderPage() {
                   address={selectedAddress}
                 />
               )}
-              <div className="flex flex-wrap gap-x-10 ">
+              <div className="flex flex-wrap gap-x-10 sm:flex-col sm:m-auto">
                 {address.map((item, index) => {
                   return (
                     <div
                       key={index}
-                      className="w-[40%] flex flex-col gap-2 py-4"
+                      className="w-[40%] flex flex-col gap-2 py-4 sm:w-[90%] sm:m-auto "
                     >
                       <div className="flex justify-between">
                         <div className="flex gap-2 ">
