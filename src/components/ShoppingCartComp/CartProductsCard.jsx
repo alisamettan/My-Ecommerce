@@ -66,14 +66,14 @@ export default function CartProductsCard() {
     return totalPrice;
   }
   return (
-    <div className="flex py-16 px-12">
+    <div className="flex py-16 px-12 sm:flex-col-reverse sm:gap-4">
       <div className="flex flex-col">
         {cart.map((item, index) => {
           if (item.count > 0) {
             return (
               <div
                 key={index}
-                className="flex items-center gap-6  py-5 px-10 border-1 w-full"
+                className="flex items-center gap-6  py-5 px-10 border-1 w-full sm:flex-col"
               >
                 <input
                   class="w-5 h-5 border-gray-800 rounded "
@@ -141,7 +141,7 @@ export default function CartProductsCard() {
         })}
       </div>
       {cart.length > 0 ? (
-        <div className="flex flex-col gap-2  mx-8 border-1 px-3  py-3 h-[20%] w-[30%]">
+        <div className="flex flex-col gap-2  mx-8 border-1 px-3  py-3 h-[20%] w-[30%] sm:w-[70%] sm:m-auto">
           <div className="flex flex-col gap-2 ">
             <h1 className="pb-4 text-2xl">Sipariş Özeti</h1>
             <div className="flex justify-between">

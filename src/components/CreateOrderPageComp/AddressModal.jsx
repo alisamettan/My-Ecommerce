@@ -104,14 +104,15 @@ export default function AddressModal({ modal, setModal, address }) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       show={modal}
+      className="sm:w-[90%] "
     >
       <FontAwesomeIcon
         onClick={() => setModal(false)}
         icon={faX}
-        className="pl-[700px] py-2 border-1 bg-orange-500 text-white cursor-pointer"
+        className="pl-[700px] py-2 border-1 bg-orange-500 text-white cursor-pointer sm:w-[90%]"
       />
-      <div className="form-card  m-auto py-16">
-        <div className="form-container">
+      <div className="form-card  m-auto py-16 sm:w-[60%] ">
+        <div className="form-container ">
           <form
             onSubmit={handleSubmit(onFormSubmit)}
             className="flex flex-col px-2 py-2 "
