@@ -16,7 +16,6 @@ export default function Footer() {
             <FontAwesomeIcon icon={faInstagram} className="w-8 h-8" />
             <FontAwesomeIcon icon={faTwitter} className="w-8 h-8" />
           </div>
-          aaa
         </div>
       </div>
       <div className="flex justify-center">
